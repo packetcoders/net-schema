@@ -1,0 +1,41 @@
+name: Pull Request
+
+on:
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  code-quailty:
+    name: "code-quality"
+    strategy:
+       matrix:
+        python-version: [3.9]
+        poetry-version: [1.1.12]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Run image
+        uses: abatilo/actions-poetry@v2.0.0
+        with:
+          poetry-version: ${{ matrix.poetry-version }}
+      - name: Install dependencies
+        run: poetry install
+      - name: Run black
+        run: poetry run black . --check
+      - name: Run isort
+        run: poetry run isort . --check-only --profile black
+      - name: Run autoflake
+        run: poetry run autoflake -r . --expand-star-imports --remove-unused-variables --remove-all-unused-imports
+      - name: Run bandit
+        run: poetry run bandit -r .
+      - name: Run flake8
+        run: poetry run flake8 . --ignore=E501
+      - name: Run pydocstyle
+        run: poetry run pydocstyle .
+      - name: Run yamlint
+        run: poetry run yamllint .
+      - name: Run mypy
+        run: poetry run mypy .

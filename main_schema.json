@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://packetcoders.io/schemas/main",
+  "type": "object",
+  "properties": {
+    "user": {
+        "$ref": "def1#/definitions/user"
+    },
+    "address": {
+        "$ref": "def2#/definitions/address"
+    }
+  },
+  "required": ["user", "address"]
+}
