@@ -1,6 +1,6 @@
 {
     "definitions": {
-        "user": {
+        "vlan": {
             "type": "object",
             "properties": {
                 "name": { "type": "string" },

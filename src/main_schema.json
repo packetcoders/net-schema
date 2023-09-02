@@ -3,11 +3,11 @@
   "$id": "https://packetcoders.io/schemas/main",
   "type": "object",
   "properties": {
-    "user": {
-        "$ref": "def1#/definitions/user"
+    "asn": {
+        "$ref": "asn#/definitions/asn"
     },
-    "address": {
-        "$ref": "def2#/definitions/address"
+    "vlan": {
+        "$ref": "vlan#/definitions/vlan"
     }
   },
   "required": ["user", "address"]
