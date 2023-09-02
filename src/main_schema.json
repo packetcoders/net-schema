@@ -10,5 +10,5 @@
         "$ref": "vlan#/definitions/vlan"
     }
   },
-  "required": ["user", "address"]
+  "required": ["asn", "vlanaddress"]
 }

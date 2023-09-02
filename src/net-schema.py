@@ -1,15 +1,16 @@
 # pip install references
 import json
+import os
+import sys
+from urllib.parse import urljoin
+
+import yaml
 from jsonschema import Draft7Validator, FormatChecker
 from referencing import Registry
 from referencing.jsonschema import DRAFT7
 from rich import print as rprint
-from rich import inspect
-from urllib.parse import urljoin
-import os
-import yaml
+
 from helpers import load_yaml_or_json
-import sys
 
 MAIN_SCHEMA = "src/main_schema.json"
 DEFAULT_ID = "http://example.com/schemas/main"

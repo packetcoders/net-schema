@@ -1,5 +1,7 @@
 import json
+
 import yaml
+
 
 # Load YAML or JSON
 def load_yaml_or_json(filename):
