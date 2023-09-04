@@ -27,10 +27,10 @@ def main(
         help="Path to the directory containing documents to validate.",
     ),
     schema: str = Option(
-        "examples/main_schema.json", help="Path to the main schema file."
+        "examples/schema.json", help="Path to the main schema file."
     ),
     def_path: str = Option(
-        "examples/defs", help="Path to the directory containing input definitions."
+        "examples/defs", help="Path to the directory containing custom definitions."
     ),
 ):
     """
@@ -56,11 +56,7 @@ def main(
                 rprint(f"File: {filename} - No validation errors found!")
 
     if errors:
-        logging.error("Validation process completed with errors.")
         sys.exit(1)
-    else:
-        logging.debug("Validation process completed successfully.")
-
 
 if __name__ == "__main__":
     app()

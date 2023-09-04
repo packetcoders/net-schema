@@ -1,4 +1,3 @@
-import pytest
 
 from net_schema import (  # replace with the actual name of your module
     definitions,
@@ -9,9 +8,7 @@ from net_schema import (  # replace with the actual name of your module
 
 
 def test_init_main_schema():
-    schema_file = (
-        "fixtures/host_vars"  # replace with a path to a test schema file
-    )
+    schema_file = "fixtures/host_vars"  # replace with a path to a test schema file
     main_schema, main_resource = init_main_schema("fixtures/schema.json")
 
     # Assertions: replace with the actual conditions you're testing for

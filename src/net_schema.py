@@ -1,4 +1,3 @@
-import json
 import logging
 import os
 from urllib.parse import urljoin
@@ -23,7 +22,6 @@ def init_main_schema(schema_file):
     logging.info(f"Initializing main schema from file: {schema_file}")
 
     main_schema = load_yaml_or_json(schema_file)
-    logging.debug("Main schema initialized successfully.")
 
     return main_schema, DRAFT7.create_resource(main_schema)
 
@@ -35,12 +33,9 @@ def load_definitions(main_id, main_resource, input_def_path):
 
     def load_definitions_from_directory(directory_path):
         """Load definitions from a directory."""
-        logging.info(f"Loading definitions from directory: {directory_path}")
         for filename in os.listdir(directory_path):
             filename_exts = (".json", ".yaml", ".yml")
             if filename.endswith(filename_exts):
-                logging.debug(f"Loading definition from file: {filename}")
-
                 rootname, _ = os.path.splitext(filename)
                 def_id = urljoin(main_id, rootname)
 
@@ -50,10 +45,8 @@ def load_definitions(main_id, main_resource, input_def_path):
                 resources.append((def_id, definition_resource))
                 logging.debug(f"Loaded definition: {rootname} from file: {filename}")
 
-    logging.info("Loading base defs")
     load_definitions_from_directory("defs")
 
-    logging.info("Loading additional defs from user")
     load_definitions_from_directory(input_def_path)
 
     logging.info("Definitions loaded successfully.")
@@ -75,5 +68,4 @@ def init_json_schema_validator(schema_path, input_def_path):
     main_id = main_schema.get("$id", DEFAULT_ID)
     registry = load_definitions(main_id, main_resource, input_def_path)
 
-    logging.info("JSON schema validator initialized successfully.")
     return init_validator(main_schema, registry)
