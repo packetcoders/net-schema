@@ -1,0 +1,49 @@
+def1:
+  id: 1
+
+def2:
+  id: 2
+
+def3:
+  id: 3
+
+def4:
+  id: 4
+  
+interfaces:
+  - name: eth0
+    ip: 10.2.1.1
+    netmask: 255.255.255.0
+  - name: eth1
+    ip: 10.2.2.1
+    netmask: 255.255.255.0
+  - name: eth2
+    ip: 10.2.3.1
+    netmask: 255.255.255.0
+  - name: eth3
+    ip: 10.2.4.1
+    netmask: 255.255.255.0
+  - name: eth4
+    ip: 10.2.5.1
+    netmask: 255.255.255.0
+
+syslog:
+  - 10.2.1000.1
+  - 10.2.100.2
+
+dns_servers: 10.2.200.1
+
+ospf:
+  area: 0
+  networks:
+    - 10.2.1.0/24
+    - 10.2.2.0/24
+    - 10.2.3.0/24
+    - 10.2.4.0/24
+    - 10.2.5.0/24
+
+bgp:
+  local_as: 65002
+  neighbors:
+    - ip: 10.2.250.1
+      remote_as: 65003

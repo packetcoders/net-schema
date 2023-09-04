@@ -8,7 +8,7 @@ import yaml
 from rich import print as rprint
 from typer import Option, Typer
 
-from netschema import init_json_schema_validator
+from net_schema import init_json_schema_validator
 
 app = Typer()
 

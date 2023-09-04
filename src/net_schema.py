@@ -28,7 +28,7 @@ def init_main_schema(schema_file):
     return main_schema, DRAFT7.create_resource(main_schema)
 
 
-def load_defs(main_id, main_resource, input_def_path):
+def load_definitions(main_id, main_resource, input_def_path):
     """Load definitions from a directory."""
     logging.info("Loading definitions.")
     resources = [(main_id, main_resource)]
@@ -39,16 +39,13 @@ def load_defs(main_id, main_resource, input_def_path):
         for filename in os.listdir(directory_path):
             filename_exts = (".json", ".yaml", ".yml")
             if filename.endswith(filename_exts):
-                print(filename)
                 logging.debug(f"Loading definition from file: {filename}")
 
                 rootname, _ = os.path.splitext(filename)
-                print(rootname)
                 def_id = urljoin(main_id, rootname)
 
-                with open(os.path.join(directory_path, filename)) as f:
-                    definition = json.load(f)
-                    definition_resource = DRAFT7.create_resource(definition)
+                definition = load_yaml_or_json(os.path.join(directory_path, filename))
+                definition_resource = DRAFT7.create_resource(definition)
 
                 resources.append((def_id, definition_resource))
                 logging.debug(f"Loaded definition: {rootname} from file: {filename}")
@@ -76,7 +73,7 @@ def init_json_schema_validator(schema_path, input_def_path):
     logging.info("Initializing JSON schema validator with provided paths.")
     main_schema, main_resource = init_main_schema(schema_path)
     main_id = main_schema.get("$id", DEFAULT_ID)
-    registry = load_defs(main_id, main_resource, input_def_path)
+    registry = load_definitions(main_id, main_resource, input_def_path)
 
     logging.info("JSON schema validator initialized successfully.")
     return init_validator(main_schema, registry)

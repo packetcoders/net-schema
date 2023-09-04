@@ -1,12 +1,17 @@
-asn:
-  name: admin
-  password: admin
-
 def1:
-  name: admin
+  id: 1
 
 def2:
-  id: 1
+  id: 2
+
+def3:
+  id: 3
+
+def4:
+  id: 4
+
+asn:
+  name: admin
 
 vlan:
   ip: 1.1.1.1
