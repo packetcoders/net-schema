@@ -2,6 +2,9 @@ asn:
   name: admin
   password: admin
 
+def1:
+  name: admin
+
 vlan:
   ip: 1.1.1.1
 
