@@ -26,9 +26,7 @@ def main(
         "examples/host_vars",
         help="Path to the directory containing documents to validate.",
     ),
-    schema: str = Option(
-        "examples/schema.json", help="Path to the main schema file."
-    ),
+    schema: str = Option("examples/schema.json", help="Path to the main schema file."),
     def_path: str = Option(
         "examples/defs", help="Path to the directory containing custom definitions."
     ),
@@ -57,6 +55,7 @@ def main(
 
     if errors:
         sys.exit(1)
+
 
 if __name__ == "__main__":
     app()

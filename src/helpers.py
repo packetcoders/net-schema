@@ -1,6 +1,7 @@
 import json
 import logging
 import sys
+
 import yaml
 
 logging.basicConfig(
@@ -21,4 +22,3 @@ def load_yaml_or_json(filename):
     except FileNotFoundError:
         print(f"[ERROR] File not found: {filename}")
         sys.exit(1)
-
