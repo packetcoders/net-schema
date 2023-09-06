@@ -26,7 +26,7 @@ def init_main_schema(schema_file):
     return main_schema, DRAFT7.create_resource(main_schema)
 
 
-def load_definitions(main_id, main_resource, input_def_path):
+def load_definitions(main_id, main_resource, custom_def_path):
     """Load definitions from a directory."""
     logging.info("Loading definitions.")
     resources = [(main_id, main_resource)]
@@ -47,7 +47,7 @@ def load_definitions(main_id, main_resource, input_def_path):
 
     load_definitions_from_directory("defs")
 
-    load_definitions_from_directory(input_def_path)
+    load_definitions_from_directory(custom_def_path)
 
     logging.info("Definitions loaded successfully.")
     return Registry().with_resources(resources)
@@ -61,11 +61,11 @@ def init_validator(main_schema, registry):
     )
 
 
-def init_json_schema_validator(schema_path, input_def_path):
+def init_json_schema_validator(schema_path, custom_def_path):
     """Initialize the JSON schema validator."""
     logging.info("Initializing JSON schema validator with provided paths.")
     main_schema, main_resource = init_main_schema(schema_path)
     main_id = main_schema.get("$id", DEFAULT_ID)
-    registry = load_definitions(main_id, main_resource, input_def_path)
+    registry = load_definitions(main_id, main_resource, custom_def_path)
 
     return init_validator(main_schema, registry)

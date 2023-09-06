@@ -44,6 +44,7 @@ def main(
                 host_vars_data = yaml.safe_load(f)
 
             file_errors = list(validator.iter_errors(host_vars_data))
+
             if file_errors:
                 for error in file_errors:
                     logging.error(f"Error in file {filename}: {error.message}")

@@ -1,7 +1,14 @@
 {
     "definitions": {
-        "asn": {
-            "type": "integer"
+        "private-asn": {
+            "type": "integer",
+            "minimum": 64512,
+            "maximum": 65534
+        },
+        "public-asn": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 64511
         }
     }
 }

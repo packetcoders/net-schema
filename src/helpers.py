@@ -1,14 +1,8 @@
 import json
-import logging
 import sys
 
 import yaml
 
-logging.basicConfig(
-    level=logging.DEBUG,
-    format="%(asctime)s - %(levelname)s - %(message)s",
-    filename="netschema.log",
-)
 
 # Load YAML or JSON
 def load_yaml_or_json(filename):

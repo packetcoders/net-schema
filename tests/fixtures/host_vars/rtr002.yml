@@ -9,7 +9,7 @@ def3:
 
 def4:
   id: 4
-  
+
 interfaces:
   - name: eth0
     ip: 10.2.1.1

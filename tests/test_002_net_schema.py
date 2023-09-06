@@ -1,16 +1,16 @@
-import os
-from net_schema import (
-    init_main_schema,
-    load_definitions,
-    init_validator,
-    init_json_schema_validator,
-)
-
 from jsonschema import Draft7Validator
+
+from net_schema import (
+    init_json_schema_validator,
+    init_main_schema,
+    init_validator,
+    load_definitions,
+)
 
 # Assuming these paths are correct, please adjust as necessary
 schema_path = "tests/fixtures/schema.json"
-input_def_path = "tests/fixtures/defs/custom/"
+custom_def_path = "tests/fixtures/defs/custom/"
+
 
 def test_init_main_schema():
     """
@@ -30,10 +30,12 @@ def test_load_definitions():
     """
     main_schema, main_resource = init_main_schema(schema_path)
     main_id = main_schema.get("$id", "http://packetcoders.io/schemas/main")
-    registry = load_definitions(main_id, main_resource, input_def_path)
+    registry = load_definitions(main_id, main_resource, custom_def_path)
 
     assert registry is not None, "Registry should not be None"
-    assert len(registry.resources) > 1, "Registry should contain more than one resource"
+    assert (
+        len(registry._resources) == 5
+    ), "Registry should contain more than one resource"
 
 
 def test_init_validator():
@@ -42,28 +44,30 @@ def test_init_validator():
     """
     main_schema, main_resource = init_main_schema(schema_path)
     main_id = main_schema.get("$id", "http://packetcoders.io/schemas/main")
-    registry = load_definitions(main_id, main_resource, input_def_path)
+    registry = load_definitions(main_id, main_resource, custom_def_path)
 
     validator = init_validator(main_schema, registry)
 
     assert validator is not None, "Validator should not be None"
-    assert isinstance(validator, Draft7Validator), "Validator should be an instance of Draft7Validator"
+    assert isinstance(
+        validator, Draft7Validator
+    ), "Validator should be an instance of Draft7Validator"
 
 
 def test_init_json_schema_validator():
     """
     Test if the JSON schema validator is initialized successfully.
     """
-    validator = init_json_schema_validator(schema_path, input_def_path)
+    validator = init_json_schema_validator(schema_path, custom_def_path)
 
     assert validator is not None, "JSON Schema Validator should not be None"
-    assert isinstance(validator, Draft7Validator), "JSON Schema Validator should be an instance of Draft7Validator"
+    assert isinstance(
+        validator, Draft7Validator
+    ), "JSON Schema Validator should be an instance of Draft7Validator"
 
 
 def test_validation_results():
     """
     Test if the validation results are as expected (this needs to be implemented).
     """
-    # Your validation tests here
-    # Example: assert json_schema_validator.validate(data) == expected_result
-    pass
+    pass  # TODO: Implement this test
