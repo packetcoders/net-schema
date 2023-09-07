@@ -27,24 +27,12 @@ TBD
 Net Schema provides various inbuilt schema definitions. Allowing you to use these definitions to validate things such as VLAN data and ASN data rather then having to define you own schema.
 
 ### `asn`
-* Usage:
-```
-"$ref": "asn#/definitions/asn"
-```
-* Schema:
-```
-TBC
-```
+* `asn#/definitions/private-asn`
+* `asn#/definitions/public-asn`
 
 ### `vlan`
-* Usage:
-```
-"$ref": "vlan#/definitions/vlan"
-```
-* Schema:
-```
-TBC
-```
+* "$ref": "vlan#/definitions/vlan"
+
 ## Custom Definitions
 Custom definitions can also be supplied using the `--def-path` option. Custom defintions can be supplied as either YAML or JSON.
 

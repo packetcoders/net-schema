@@ -8,13 +8,7 @@
     },
     "vlan": {
         "$ref": "vlan#/definitions/vlan"
-    },
-    "def1": {
-        "$ref": "def1#/definitions/def1"
-    },
-    "def2": {
-      "$ref": "def2#/definitions/def2"
-  }
+    }
   },
   "required": ["asn", "vlan"]
 }
