@@ -1,54 +1,41 @@
-#!/usr/bin/env python3
-
-import logging
-import os
-import sys
-
-import yaml
-from rich import print as rprint
-from typer import Option, Typer
-
-from net_schema import init_json_schema_validator
-
-app = Typer()
-
-
-logging.basicConfig(
-    level=logging.DEBUG,
-    format="%(asctime)s - %(levelname)s - %(message)s",
-    filename="netschema.log",
-)
-
-
-@app.command()
-def main(
-    document_path: str = Option(
-        "examples/host_vars",
-        help="Path to the directory containing documents to validate.",
-    ),
-    schema: str = Option("examples/schema.json", help="Path to the main schema file."),
-    def_path: str = Option(
-        "examples/defs", help="Path to the directory containing custom definitions."
-    ),
-):
+def main(document_path="examples/host_vars",
+         schema_path="examples/schema.json",
+         def_path="examples/defs"):
     """
     Validates YAML files in the document_path directory against the JSON schema.
     """
     logging.debug("✅ Starting validation process.")
-    validator = init_json_schema_validator(schema, def_path)
+
+    # Get absolute path of the directory containing the script
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+
+    # Convert relative paths to absolute paths
+    abs_document_path = os.path.join(base_dir, document_path)
+    abs_schema_path = os.path.join(base_dir, schema_path)
+    abs_def_path = os.path.join(base_dir, def_path)
+    print(abs_schema_path)
+    # Load schema and definitions from files
+    main_schema = load_yaml_or_json(abs_schema_path)
+    definitions = {}
+    for filename in os.listdir(abs_def_path):
+        if filename.endswith(('.yaml', '.yml', '.json')):
+            rootname = os.path.splitext(filename)[0]
+            definitions[rootname] = load_yaml_or_json(os.path.join(abs_def_path, filename))
+
+    # Create validator
+    validator = JSONSchemaValidator(main_schema, definitions)
     errors = []
 
-    for filename in os.listdir(document_path):
-        if filename.endswith((".yaml", ".yml")):
-            with open(os.path.join(document_path, filename), "r") as f:
-                host_vars_data = yaml.safe_load(f)
+    for filename in os.listdir(abs_document_path):
+        if filename.endswith(('.yaml', '.yml')):
+            host_vars_data = load_yaml_or_json(os.path.join(abs_document_path, filename))
 
-            file_errors = list(validator.iter_errors(host_vars_data))
+            file_errors = validator.errors(host_vars_data)
 
             if file_errors:
                 for error in file_errors:
-                    logging.error(f"Error in file {filename}: {error.message}")
-                    rprint(f":cross_mark: File: {filename} Error: {error.message}")
+                    logging.error(f"Error in file {filename}: {error['error']}")
+                    rprint(f":cross_mark: File: {filename} Error: {error['error']}")
                 errors.extend(file_errors)
             else:
                 logging.info(f"File {filename} validated successfully.")
@@ -56,7 +43,3 @@ def main(
 
     if errors:
         sys.exit(1)
-
-
-if __name__ == "__main__":
-    app()
