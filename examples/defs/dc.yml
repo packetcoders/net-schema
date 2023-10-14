@@ -1,8 +1,0 @@
----
-definitions:
-  datacenter:
-    type: enum
-    values:
-    - dc1
-    - dc2
-    - dc3

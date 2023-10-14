@@ -1,10 +1,13 @@
 import logging
 from urllib.parse import urljoin
 
-from jsonschema import Draft7Validator, FormatChecker
+from jsonschema import Draft7Validator, FormatChecker, exceptions
 from referencing import Registry
 from referencing.jsonschema import DRAFT7
 from rich import inspect
+from rich import print as rprint
+
+from .base import BaseValidator
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -15,7 +18,7 @@ logging.basicConfig(
 DEFAULT_ID = "http://packetcoders.io/schemas/main"
 
 
-class JSONSchemaValidator:
+class JSONSchemaValidator(BaseValidator):
     def __init__(self, main_schema, definitions=None):
         self.main_schema = main_schema
         self.main_id = self.main_schema.get("$id", DEFAULT_ID)
@@ -41,16 +44,31 @@ class JSONSchemaValidator:
         errors = [error for error in self.validator.iter_errors(data)]
         return errors
 
+    def initialize_validator(self, main_schema, definitions):
+        return JSONSchemaValidator(main_schema, definitions)
+
     def errors(self, data):
         errors = []
-        for error in self.validator.iter_errors(data):
+        try:
+            for error in self.validator.iter_errors(data):
+                errors.append(
+                    {
+                        "error": error.message,
+                        "value": ", ".join([prop for prop in error.path]),
+                    }
+                )
+        except exceptions._WrappedReferencingError as e:
+            # Catch the exception and append a custom error message
             errors.append(
                 {
-                    "error": error.message,
-                    "value": ", ".join([prop for prop in error.path]),
+                    "error": f"Unresolved reference error: {str(e)}",
+                    "value": "N/A"
                 }
             )
         return errors
+
+
+
 
 
 # Usage example

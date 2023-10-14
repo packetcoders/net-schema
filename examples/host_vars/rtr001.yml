@@ -2,13 +2,7 @@ asn:
   name: admin
   password: admin
 
-def1:
-  name: admin
-
-def2:
-  id: 1
-
-vlan:
+c_vlan:
   ip: 1.1.1.1
 
 interfaces:

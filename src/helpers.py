@@ -5,14 +5,15 @@ import yaml
 
 
 # Load YAML or JSON
+
 def load_yaml_or_json(filename):
     try:
-        if filename.endswith(".yaml") or filename.endswith(".yml"):
-            with open(filename, "r") as f:
+        if filename.suffix in [".yaml", ".yml"]:
+            with filename.open() as f:
                 return yaml.safe_load(f)
-        elif filename.endswith(".json"):
-            with open(filename, "r") as f:
+        elif filename.suffix == ".json":
+            with filename.open() as f:
                 return json.load(f)
     except FileNotFoundError:
-        print(f"[ERROR] File not found: {filename}")
+        rprint(f"[ERROR] File not found: {filename}")
         sys.exit(1)
