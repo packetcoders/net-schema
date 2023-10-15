@@ -16,15 +16,17 @@ import sys
 
 sys.path.append(str(pathlib.Path(__file__).parent.parent.absolute()))
 
-from validators.json_schema import JSONSchemaValidator
+from src.json_schema import JSONSchemaValidator
+from helpers import load_yaml_or_json
+from runner import ValidationRunner
 
 
 
 if __name__ == "__main__":
-    runner = JSONSchemaValidator(
+    runner = ValidationRunner(
         document_path="examples/host_vars",
         schema_path="examples/schema.yaml",
-        def_path_custom="examples/custom_defs",
-        def_path_builtin="builtin_defs"
+        validator=JSONSchemaValidator(),
+        definition_paths=["examples/custom_defs"],
     )
     runner.run()

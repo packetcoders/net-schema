@@ -1,27 +1,14 @@
 import logging
 import json
 import yaml
-from urllib.parse import urljoin
-from jsonschema import Draft7Validator, FormatChecker
-from referencing import Registry
-from referencing.jsonschema import DRAFT7
 from pathlib import Path
 from rich import inspect, print as rprint  # renaming to avoid conflict with built-in print
-import sys
-from rich import print as rprint
-
-import pathlib
-import sys
-
-#sys.path.append(str(pathlib.Path(__file__).parent.parent.absolute()))
-
-from .abstracts import AbstractValidator
 from helpers import load_yaml_or_json
 
+class ValidationRunner:
 
-class BaseValidator(AbstractValidator):
-
-    def __init__(self, document_path, schema_path, *definition_paths):
+    def __init__(self, document_path, schema_path, validator, definition_paths=[]):
+        self.validator = validator
         self.document_path = Path(document_path)
         self.schema_path = Path(schema_path)
         self.definition_paths = [Path(path) for path in definition_paths]
@@ -39,12 +26,12 @@ class BaseValidator(AbstractValidator):
         rprint(definitions)
         return definitions
 
-    def validate_documents(self, validator):
+    def validate_documents(self):
         errors = []
         for filename in self.document_path.iterdir():
             if filename.suffix in ['.yaml', '.yml', '.json']:
                 host_vars_data = load_yaml_or_json(filename)
-                file_errors = validator.errors(host_vars_data)
+                file_errors = self.validator.errors(host_vars_data)
 
                 if file_errors:
                     for error in file_errors:
@@ -56,17 +43,10 @@ class BaseValidator(AbstractValidator):
                     rprint(f"File: {filename.name} - No validation errors found!")
         return errors
 
-    def initialize_validator(self, main_schema, definitions):
-        return None
-
     def run(self):
-        main_schema = self.load_schema()
+        schema = self.load_schema()
         definitions = self.load_definitions()
-        validator = self.initialize_validator(main_schema, definitions)
-        errors = self.validate_documents(validator)
-        if errors:
-            sys.exit(1)
-
-
+        self.validator.initialize(schema, definitions)
+        return self.validate_documents()
 
 

@@ -7,7 +7,6 @@ from referencing.jsonschema import DRAFT7
 from rich import inspect
 from rich import print as rprint
 
-from .base import BaseValidator
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -18,13 +17,19 @@ logging.basicConfig(
 DEFAULT_ID = "http://packetcoders.io/schemas/main"
 
 
-class JSONSchemaValidator(BaseValidator):
-    def __init__(self, main_schema, definitions=None):
+class JSONSchemaValidator:
+    def __init__(self):
+        self._internal_validator = None
+
+    def initialize(self, main_schema, definitions=None):
         self.main_schema = main_schema
         self.main_id = self.main_schema.get("$id", DEFAULT_ID)
         self.main_resource = DRAFT7.create_resource(self.main_schema)
         self.registry = self._load_definitions(self.main_id, self.main_resource, definitions)
         self.validator = self._init_validator(self.main_schema, self.registry)
+
+    def _init_validator(self, main_schema, registry):
+        return Draft7Validator(main_schema, format_checker=FormatChecker(), registry=registry)
 
     def _load_definitions(self, main_id, main_resource, definitions):
         resources = [(main_id, main_resource)]
@@ -44,8 +49,6 @@ class JSONSchemaValidator(BaseValidator):
         errors = [error for error in self.validator.iter_errors(data)]
         return errors
 
-    def initialize_validator(self, main_schema, definitions):
-        return JSONSchemaValidator(main_schema, definitions)
 
     def errors(self, data):
         errors = []
@@ -101,4 +104,4 @@ if __name__ == "__main__":
         "age": -5
     }
     errors = validator.errors(data)
-    print(errors)
+    rprint(errors)
