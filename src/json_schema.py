@@ -1,12 +1,21 @@
 import logging
 from urllib.parse import urljoin
-
+from jsonschema.validators import extend
 from jsonschema import Draft7Validator, FormatChecker, exceptions
 from referencing import Registry
 from referencing.jsonschema import DRAFT7
-from rich import inspect
-from rich import print as rprint
 
+from validators import (
+    is_2byte_asn,
+    is_4byte_asn,
+    is_asn,
+    is_asn_dot_notation,
+    is_asn_int_notation,
+    is_documentation,
+    is_global,
+    is_private,
+    is_reserved,
+)
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -25,11 +34,20 @@ class JSONSchemaValidator:
         self.main_schema = main_schema
         self.main_id = self.main_schema.get("$id", DEFAULT_ID)
         self.main_resource = DRAFT7.create_resource(self.main_schema)
-        self.registry = self._load_definitions(self.main_id, self.main_resource, definitions)
+        self.registry = self._load_definitions(
+            self.main_id, self.main_resource, definitions
+        )
         self.validator = self._init_validator(self.main_schema, self.registry)
+        self._load_validators()
 
     def _init_validator(self, main_schema, registry):
-        return Draft7Validator(main_schema, format_checker=FormatChecker(), registry=registry)
+        return Draft7Validator(
+            main_schema, format_checker=FormatChecker(), registry=registry
+        )
+
+
+    def _load_validators(self):
+        return "Not implemented yet"
 
     def _load_definitions(self, main_id, main_resource, definitions):
         resources = [(main_id, main_resource)]
@@ -39,16 +57,6 @@ class JSONSchemaValidator:
                 resources.append((def_id, DRAFT7.create_resource(definition)))
 
         return Registry().with_resources(resources)
-
-    def _init_validator(self, main_schema, registry):
-        return Draft7Validator(
-            main_schema, format_checker=FormatChecker(), registry=registry
-        )
-
-    def validate(self, data):
-        errors = [error for error in self.validator.iter_errors(data)]
-        return errors
-
 
     def errors(self, data):
         errors = []
@@ -63,45 +71,6 @@ class JSONSchemaValidator:
         except exceptions._WrappedReferencingError as e:
             # Catch the exception and append a custom error message
             errors.append(
-                {
-                    "error": f"Unresolved reference error: {str(e)}",
-                    "value": "N/A"
-                }
+                {"error": f"Unresolved reference error: {str(e)}", "value": "N/A"}
             )
         return errors
-
-
-
-
-
-# Usage example
-if __name__ == "__main__":
-    # Main schema and definitions
-    schema = {
-        "$id": "http://example.com/schema",
-        "type": "object",
-        "properties": {
-            "name": {"type": "string"},
-            "age": {"type": "integer", "minimum": 0}
-        },
-        "required": ["name"]
-    }
-
-    definitions = {
-        "address": {
-            "type": "object",
-            "properties": {
-                "street": {"type": "string"},
-                "city": {"type": "string"}
-            },
-            "required": ["street", "city"]
-        }
-    }
-
-    validator = JSONSchemaValidator(schema, definitions)
-    data = {
-        "name": "John",
-        "age": -5
-    }
-    errors = validator.errors(data)
-    rprint(errors)

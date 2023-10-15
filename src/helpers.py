@@ -2,9 +2,10 @@ import json
 import sys
 
 import yaml
-
+from rich import print as rprint  # noqa
 
 # Load YAML or JSON
+
 
 def load_yaml_or_json(filename):
     try:

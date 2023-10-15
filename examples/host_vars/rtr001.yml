@@ -2,8 +2,7 @@ asn:
   name: admin
   password: admin
 
-c_vlan:
-  ip: 1.1.1.1
+private_asn: 6500100
 
 interfaces:
   - name: eth0

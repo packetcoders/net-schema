@@ -1,5 +1,4 @@
 from jsonschema import Draft7Validator
-
 from net_schema import (
     init_json_schema_validator,
     init_main_schema,
