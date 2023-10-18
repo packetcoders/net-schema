@@ -5,14 +5,14 @@ from jsonschema import Draft7Validator, FormatChecker, exceptions
 from referencing import Registry
 from referencing.jsonschema import DRAFT7
 
-from validators import (
+from src.validators.asn import (
     is_2byte_asn,
     is_4byte_asn,
     is_asn,
     is_asn_dot_notation,
     is_asn_int_notation,
     is_documentation,
-    is_global,
+    is_public,
     is_private,
     is_reserved,
 )
