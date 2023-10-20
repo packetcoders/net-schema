@@ -4,8 +4,10 @@ from jsonschema.validators import extend
 from jsonschema import Draft7Validator, FormatChecker, exceptions
 from referencing import Registry
 from referencing.jsonschema import DRAFT7
+from jsonschema import Draft7Validator
+from jsonschema.validators import extend
 
-from src.validators.asn import (
+from validators.asn import (
     is_2byte_asn,
     is_4byte_asn,
     is_asn,
@@ -14,7 +16,7 @@ from src.validators.asn import (
     is_documentation,
     is_public,
     is_private,
-    is_reserved,
+    #is_reserved,
 )
 
 logging.basicConfig(
@@ -23,7 +25,21 @@ logging.basicConfig(
     filename="net_schema.log",
 )
 
+from rich import print as rprint
+
 DEFAULT_ID = "http://packetcoders.io/schemas/main"
+
+ASN_VALIDATORS = {
+    "public-asn": is_public,
+    "private-asn": is_private,
+    #"reserved-asn": is_reserved,
+    "documentation-asn": is_documentation,
+    "2byte-asn": is_2byte_asn,
+    "4byte-asn": is_4byte_asn,
+    "asn": is_asn,
+    "asn-dot-notation": is_asn_dot_notation,
+    "asn-int-notation": is_asn_int_notation,
+}
 
 
 class JSONSchemaValidator:
@@ -41,10 +57,8 @@ class JSONSchemaValidator:
         self._load_validators()
 
     def _init_validator(self, main_schema, registry):
-        return Draft7Validator(
-            main_schema, format_checker=FormatChecker(), registry=registry
-        )
-
+        validator_class = extend(Draft7Validator, validators=ASN_VALIDATORS)
+        return validator_class(main_schema, format_checker=FormatChecker(), registry=registry)
 
     def _load_validators(self):
         return "Not implemented yet"
@@ -58,10 +72,10 @@ class JSONSchemaValidator:
 
         return Registry().with_resources(resources)
 
-    def errors(self, data):
+    def errors(self, data, schema):
         errors = []
         try:
-            for error in self.validator.iter_errors(data):
+            for error in self.validator.iter_errors(schema, data):
                 errors.append(
                     {
                         "error": error.message,

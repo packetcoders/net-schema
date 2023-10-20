@@ -19,7 +19,7 @@ class ValidationRunner:
         self.validator = validator
         self.document_path = Path(document_path)
         self.schema_path = Path(schema_path)
-        self.definition_paths = [Path(path) for path in definition_paths]
+        self.definition_paths = [Path(path) for path in definition_paths if path is not None]
 
     def load_schema(self):
         return load_yaml_or_json(self.schema_path)
@@ -38,7 +38,7 @@ class ValidationRunner:
         for filename in self.document_path.iterdir():
             if filename.suffix in [".yaml", ".yml", ".json"]:
                 host_vars_data = load_yaml_or_json(filename)
-                file_errors = self.validator.errors(host_vars_data)
+                file_errors = self.validator.errors(host_vars_data, self.schema)
 
                 if file_errors:
                     for error in file_errors:
@@ -56,6 +56,7 @@ class ValidationRunner:
 
     def run(self):
         schema = self.load_schema()
+        self.schema = schema
         definitions = self.load_definitions()
         self.validator.initialize(schema, definitions)
         return self.validate_documents()
@@ -66,6 +67,6 @@ if __name__ == "__main__":
         document_path="examples/host_vars",
         schema_path="examples/schema.yaml",
         validator=JSONSchemaValidator(),
-        definition_paths=["examples/custom_defs"],
+        definition_paths=[],
     )
     runner.run()
