@@ -1,17 +1,18 @@
+# The `ValidationRunner` class is responsible for loading a schema and definitions, validating
+# documents against the schema, and logging any errors.
 import pathlib
 import sys
 
-from rich import print as rprint  # renaming to avoid conflict with built-in print
+from rich import print as rprint
 
 sys.path.append(str(pathlib.Path(__file__).parent.parent.absolute()))
 
 import logging
 from pathlib import Path
 
-from rich import print as rprint  # noqa
 
 from helpers import load_yaml_or_json
-from json_schema import JSONSchemaValidator
+from src.plugins.json_schema.validator import JSONSchemaValidator
 
 
 class ValidationRunner:
@@ -19,7 +20,9 @@ class ValidationRunner:
         self.validator = validator
         self.document_path = Path(document_path)
         self.schema_path = Path(schema_path)
-        self.definition_paths = [Path(path) for path in definition_paths if path is not None]
+        self.definition_paths = [
+            Path(path) for path in definition_paths if path is not None
+        ]
 
     def load_schema(self):
         return load_yaml_or_json(self.schema_path)
@@ -58,7 +61,7 @@ class ValidationRunner:
         schema = self.load_schema()
         self.schema = schema
         definitions = self.load_definitions()
-        self.validator.initialize(schema, definitions)
+        self.validator.setup(schema, definitions)
         return self.validate_documents()
 
 
