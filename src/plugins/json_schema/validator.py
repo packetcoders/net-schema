@@ -88,7 +88,9 @@ class JSONSchemaValidator:
         self.registry = self._load_definitions(
             self.main_id, self.main_resource, definitions
         )
-        self.validator = self._create_validator_instance(self.main_schema, self.registry)
+        self.validator = self._create_validator_instance(
+            self.main_schema, self.registry
+        )
 
     def _create_validator_instance(self, main_schema, registry):
         validator_class = extend(Draft7Validator, validators=VALIDATORS)
