@@ -4,9 +4,9 @@ name: CI
 on:
   push:
     branches: [ "development", "refactor"]
-    paths:
-      - "**/*.py"
-      - "!**/README.md"
+    #paths:
+    #  - "**/*.py"
+    #  - "!**/README.md"
   pull_request:
     branches: [ "development" ]
     paths:
