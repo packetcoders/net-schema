@@ -35,7 +35,7 @@ def asn_to_int(value) -> int:
 
 
 # Custom ASN Validators
-def is_asn(validator, value, instance, schema) -> None:
+def asn(validator, value, instance, schema) -> None:
     """Returns True if the ASN is a valid ASN, False otherwise."""
     try:
         asn_int = asn_to_int(value)
@@ -47,7 +47,7 @@ def is_asn(validator, value, instance, schema) -> None:
         yield e
 
 
-def is_public(validator, value, instance, schema) -> None:
+def asn_public(validator, value, instance, schema) -> None:
     """Returns True if the ASN is a public/global ASN, False otherwise."""
     try:
         asn_int = asn_to_int(instance)
@@ -61,7 +61,7 @@ def is_public(validator, value, instance, schema) -> None:
         yield e
 
 
-def is_private(validator, value, instance, schema) -> None:
+def asn_private(validator, value, instance, schema) -> None:
     """Returns True if the ASN is a private ASN, False otherwise."""
     try:
         asn_int = asn_to_int(instance)
@@ -71,7 +71,7 @@ def is_private(validator, value, instance, schema) -> None:
         yield e
 
 
-def is_reserved(validator, value, instance, schema) -> None:
+def asn_reserved(validator, value, instance, schema) -> None:
     """Returns True if the ASN is a reserved ASN, False otherwise."""
     try:
         asn_int = asn_to_int(instance)
@@ -85,7 +85,7 @@ def is_reserved(validator, value, instance, schema) -> None:
         yield e
 
 
-def is_documentation(validator, value, instance, schema) -> None:
+def asn_documentation(validator, value, instance, schema) -> None:
     """Returns True if the ASN is a documentation ASN, False otherwise."""
     try:
         asn_int = asn_to_int(instance)
@@ -95,7 +95,7 @@ def is_documentation(validator, value, instance, schema) -> None:
         yield e
 
 
-def is_2byte_asn(validator, value, instance, schema) -> None:
+def asn_2byte(validator, value, instance, schema) -> None:
     """Returns True if the ASN is a 2-byte ASN, False otherwise."""
     try:
         asn_int = asn_to_int(instance)
@@ -105,7 +105,7 @@ def is_2byte_asn(validator, value, instance, schema) -> None:
         yield e
 
 
-def is_4byte_asn(validator, value, instance, schema) -> None:
+def asn_4byte(validator, value, instance, schema) -> None:
     """Returns True if the ASN is a 4-byte ASN, False otherwise."""
     try:
         asn_int = asn_to_int(instance)
@@ -115,7 +115,7 @@ def is_4byte_asn(validator, value, instance, schema) -> None:
         yield e
 
 
-def is_asn_dot_notation(validator, value, instance, schema) -> None:
+def asn_notation_dot(validator, value, instance, schema) -> None:
     """Returns True if the ASN is a valid ASN in dot notation, False otherwise."""
     try:
         asn_int = asn_to_int(instance)
@@ -125,7 +125,7 @@ def is_asn_dot_notation(validator, value, instance, schema) -> None:
         yield e
 
 
-def is_asn_int_notation(validator, value, instance, schema) -> None:
+def asn_notation_int(validator, value, instance, schema) -> None:
     """Returns True if the ASN is a valid ASN in integer notation, False otherwise."""
     try:
         if instance == asn_to_int(instance):

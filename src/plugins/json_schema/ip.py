@@ -3,7 +3,10 @@ import ipaddress
 from jsonschema.exceptions import ValidationError
 
 
-def is_multicast(validator, value, instance, schema) -> None:
+
+
+
+def ip_multicast(validator, value, instance, schema) -> None:
     """Check if the IP address is a multicast address."""
     try:
         if not ipaddress.ip_address(instance).is_multicast:
@@ -12,7 +15,7 @@ def is_multicast(validator, value, instance, schema) -> None:
         yield ValidationError(f"'{instance}' is not a valid IP address.")
 
 
-def is_private(validator, value, instance, schema) -> None:
+def ip_private(validator, value, instance, schema) -> None:
     """Check if the IP address is a private address."""
     try:
         if not ipaddress.ip_address(instance).is_private:
@@ -30,7 +33,7 @@ def is_unspecified(validator, value, instance, schema) -> None:
         yield ValidationError(f"'{instance}' is not a valid IP address.")
 
 
-def is_reserved(validator, value, instance, schema) -> None:
+def ip_reserved(validator, value, instance, schema) -> None:
     """Check if the IP address is a reserved address."""
     try:
         if not ipaddress.ip_address(instance).is_reserved:
@@ -39,7 +42,7 @@ def is_reserved(validator, value, instance, schema) -> None:
         yield ValidationError(f"'{instance}' is not a valid IP address.")
 
 
-def is_loopback(validator, value, instance, schema) -> None:
+def ip_loopback(validator, value, instance, schema) -> None:
     """Check if the IP address is a loopback address."""
     try:
         if not ipaddress.ip_address(instance).is_loopback:
@@ -48,7 +51,7 @@ def is_loopback(validator, value, instance, schema) -> None:
         yield ValidationError(f"'{instance}' is not a valid IP address.")
 
 
-def is_link_local(validator, value, instance, schema) -> None:
+def ip_linklocal(validator, value, instance, schema) -> None:
     """Check if the IP address is a link-local address."""
     try:
         if not ipaddress.ip_address(instance).is_link_local:
@@ -57,7 +60,7 @@ def is_link_local(validator, value, instance, schema) -> None:
         yield ValidationError(f"'{instance}' is not a valid IP address.")
 
 
-def is_ipv4(validator, value, instance, schema) -> None:
+def ip_ipv4(validator, value, instance, schema) -> None:
     """Check if the IP address is an IPv4 address."""
     try:
         if not isinstance(ipaddress.ip_address(instance), ipaddress.IPv4Address):
@@ -66,7 +69,7 @@ def is_ipv4(validator, value, instance, schema) -> None:
         yield ValidationError(f"'{instance}' is not a valid IP address.")
 
 
-def is_ipv6(validator, value, instance, schema) -> None:
+def ip_ipv6(validator, value, instance, schema) -> None:
     """Check if the IP address is an IPv6 address."""
     try:
         if not isinstance(ipaddress.ip_address(instance), ipaddress.IPv6Address):
@@ -75,7 +78,7 @@ def is_ipv6(validator, value, instance, schema) -> None:
         yield ValidationError(f"'{instance}' is not a valid IP address.")
 
 
-def is_ipaddress(validator, value, instance, schema) -> None:
+def ip_ipaddress(validator, value, instance, schema) -> None:
     """Check if the IP address is an IP address."""
     try:
         ipaddress.ip_address(instance)
@@ -83,7 +86,7 @@ def is_ipaddress(validator, value, instance, schema) -> None:
         yield ValidationError(f"'{instance}' is not a valid IP address.")
 
 
-def is_network(validator, value, instance, schema) -> None:
+def ip_network(validator, value, instance, schema) -> None:
     """Check if the IP address is a network."""
     try:
         ipaddress.ip_network(instance, strict=False)
@@ -91,7 +94,7 @@ def is_network(validator, value, instance, schema) -> None:
         yield ValidationError(f"'{instance}' is not a valid IP network.")
 
 
-def is_ip_interface(validator, value, instance, schema) -> None:
+def ip_interface(validator, value, instance, schema) -> None:
     """Check if the IP address is an IP interface."""
     try:
         ipaddress.ip_interface(instance)
@@ -99,7 +102,7 @@ def is_ip_interface(validator, value, instance, schema) -> None:
         yield ValidationError(f"'{instance}' is not a valid IP interface.")
 
 
-def is_shared(validator, value, instance, schema) -> None:
+def ip_shared(validator, value, instance, schema) -> None:
     """Check if the IP address is a shared address."""
     try:
         if instance not in ipaddress.ip_network("100.64.0.0/10"):
