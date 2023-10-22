@@ -53,7 +53,7 @@ jobs:
         run: poetry run mypy .
   test:
     name: "python-tests"
-    needs: python-code-quality
+    needs: "code-quality"
     strategy:
       matrix:
         python-version: [3.8.x]
