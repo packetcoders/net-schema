@@ -1,7 +1,4 @@
-{
-    "definitions": {
-        "def2": {
-            "type": "string"
-        }
-    }
-}
+---
+definitions:
+    def2:
+        type: "string"
