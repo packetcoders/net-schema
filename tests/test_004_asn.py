@@ -1,6 +1,7 @@
 import jsonschema
-from jsonschema.validators import extend
 from jsonschema import Draft7Validator, exceptions
+from jsonschema.validators import extend
+
 from plugins.json_schema.asn import (
     asn,
     asn_2byte,

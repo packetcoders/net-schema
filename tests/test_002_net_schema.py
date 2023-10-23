@@ -1,10 +1,12 @@
 from jsonschema import Draft7Validator
-from main import (
-    # init_json_schema_validator,
-    # init_main_schema,
-    # init_validator,
-    load_definitions,
-)
+
+from main import load_definitions
+
+# (
+# init_json_schema_validator,
+# init_main_schema,
+# init_validator,
+# )
 
 # Assuming these paths are correct, please adjust as necessary
 schema_path = "tests/fixtures/schema.json"
