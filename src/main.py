@@ -2,14 +2,13 @@
 # documents against the schema, and logging any errors.
 import pathlib
 import sys
+from pathlib import Path
 
 from rich import print as rprint
 
 sys.path.append(str(pathlib.Path(__file__).parent.parent.absolute()))
 
 import logging
-from pathlib import Path
-
 
 from helpers import load_yaml_or_json
 from src.plugins.json_schema.validator import JSONSchemaValidator

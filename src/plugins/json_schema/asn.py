@@ -5,20 +5,20 @@ ASN_MAX_LEGACY = 65535
 ASN_MAX = 4294967295
 
 
-def asn_to_int(value) -> int:
+def asn_to_int(instance) -> int:
     """Converts an ASN in dot notation to its integer representation."""
-    asn_error = f"'{value}' is not a valid ASN."
-
-    if not isinstance(value, (int, str)):
+    asn_error = f"'{instance}' is not a valid ASN."
+    
+    if not isinstance(instance, (int, str)) or isinstance(instance, bool):
         raise ValidationError(asn_error)
 
-    if "." not in value:
+    if "." not in instance:
         try:
-            return int(value)
+            return int(instance)
         except ValueError:
             raise ValidationError(asn_error)
 
-    asn_parts = value.split(".")
+    asn_parts = instance.split(".")
 
     if len(asn_parts) != 2:
         raise ValidationError(asn_error)
@@ -33,12 +33,14 @@ def asn_to_int(value) -> int:
     ):
         raise ValidationError(asn_error)
 
+    return int(instance)
+
 
 # Custom ASN Validators
 def asn(validator, value, instance, schema) -> None:
     """Returns True if the ASN is a valid ASN, False otherwise."""
     try:
-        asn_int = asn_to_int(value)
+        asn_int = asn_to_int(instance)
 
         if not (ASN_MIN <= asn_int <= ASN_MAX):
             yield ValidationError(f"'{instance}' is not a valid ASN.")

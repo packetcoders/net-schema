@@ -17,22 +17,6 @@ from plugins.json_schema.asn import (
     asn_public,
     asn_reserved,
 )
-from plugins.json_schema.ip import (
-    ip,
-    ip_ipv4,
-    ip_ipv6,
-    ip_interface,
-    ip_ipaddress,
-    ip_network,
-    ip_linklocal,
-    ip_loopback,
-    ip_multicast,
-    ip_documentation,
-    ip_private,
-    ip_reserved,
-    ip_shared,
-    ip_unspecified,
-)
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -44,35 +28,19 @@ logging.basicConfig(
 DEFAULT_ID = "http://packetcoders.io/schemas/main"
 
 ASN_VALIDATORS = {
-    "public-asn": is_public,
-    "private-asn": is_private,
-    "reserved-asn": is_reserved,
-    "documentation-asn": is_documentation,
-    "2byte-asn": is_2byte_asn,
-    "4byte-asn": is_4byte_asn,
-    "asn": is_asn,
-    "asn-dot-notation": is_asn_dot_notation,
-    "asn-int-notation": is_asn_int_notation,
-}
-
-IP_VALIDATORS = {
-    "multicast": is_multicast,
-    "private": is_private,
-    "unspecified": is_unspecified,
-    "reserved": is_reserved,
-    "loopback": is_loopback,
-    "link-local": is_link_local,
-    "ipv4": is_ipv4,
-    "ipv6": is_ipv6,
-    "ip-address": is_ipaddress,
-    "ip-network": is_network,
-    "ip-interface": is_ip_interface,
-    "shared": is_shared,
-    "documentation": is_documentation,
+    "public": asn_public,
+    "private": asn_private,
+    "reserved": asn_reserved,
+    "documentation": asn_documentation,
+    "2byte": asn_2byte,
+    "4byte": asn_4byte,
+    "asn": asn,
+    "dot-notation": asn_notation_dot,
+    "int-notation": asn_notation_int,
 }
 
 
-VALIDATORS = {**ASN_VALIDATORS, **IP_VALIDATORS}
+VALIDATORS = {**ASN_VALIDATORS}
 
 
 class JSONSchemaValidator:
@@ -88,7 +56,9 @@ class JSONSchemaValidator:
         self.registry = self._load_definitions(
             self.main_id, self.main_resource, definitions
         )
-        self.validator = self._create_validator_instance(self.main_schema, self.registry)
+        self.validator = self._create_validator_instance(
+            self.main_schema, self.registry
+        )
 
     def _create_validator_instance(self, main_schema, registry):
         validator_class = extend(Draft7Validator, validators=VALIDATORS)
@@ -108,7 +78,7 @@ class JSONSchemaValidator:
     def errors(self, data, schema):
         errors = []
         try:
-            for error in self.validator.iter_errors(schema, data):
+            for error in self.validator.iter_errors(data):
                 errors.append(
                     {
                         "error": error.message,

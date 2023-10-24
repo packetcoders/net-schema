@@ -2,7 +2,7 @@ asn:
   name: admin
   password: admin
 
-private_asn: 6500100
+private_asn: "6500100"
 
 interfaces:
   - name: eth0

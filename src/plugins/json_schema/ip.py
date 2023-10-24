@@ -3,9 +3,6 @@ import ipaddress
 from jsonschema.exceptions import ValidationError
 
 
-
-
-
 def ip_multicast(validator, value, instance, schema) -> None:
     """Check if the IP address is a multicast address."""
     try:
