@@ -8,7 +8,7 @@ ASN_MAX = 4294967295
 def asn_to_int(instance) -> int:
     """Converts an ASN in dot notation to its integer representation."""
     asn_error = f"'{instance}' is not a valid ASN."
-    
+
     if not isinstance(instance, (int, str)) or isinstance(instance, bool):
         raise ValidationError(asn_error)
 

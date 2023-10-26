@@ -1,3 +1,4 @@
+---
 interfaces:
   - name: eth0
     ip: 10.5.1.1

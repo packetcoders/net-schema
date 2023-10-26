@@ -1,10 +1,6 @@
 import logging
-from urllib.parse import urljoin
 
 from jsonschema import Draft7Validator, FormatChecker, exceptions
-from jsonschema.validators import extend
-from referencing import Registry
-from referencing.jsonschema import DRAFT7
 
 from plugins.json_schema.asn import (
     asn,
@@ -40,53 +36,43 @@ ASN_VALIDATORS = {
 }
 
 
-VALIDATORS = {**ASN_VALIDATORS}
+CUSTOM_VALIDATORS = {**ASN_VALIDATORS}
 
 
 class JSONSchemaValidator:
-    def __init__(self):
-        """Initialize the validator."""
-        self._internal_validator = None
+    # def __init__(self):
+    #    pass
 
-    def setup(self, main_schema, definitions=None):
-        self.main_schema = main_schema
-        self.main_id = self.main_schema.get("$id", DEFAULT_ID)
-        self.main_resource = DRAFT7.create_resource(self.main_schema)
+    def initialize(self, schema):
+        self._validator = Draft7Validator(schema, format_checker=FormatChecker())
+        self._load_custom_validators()
+        self._errors = []
 
-        self.registry = self._load_definitions(
-            self.main_id, self.main_resource, definitions
-        )
-        self.validator = self._create_validator_instance(
-            self.main_schema, self.registry
-        )
+    def _load_custom_validators(self):
+        self._validator.VALIDATORS.update(CUSTOM_VALIDATORS)
 
-    def _create_validator_instance(self, main_schema, registry):
-        validator_class = extend(Draft7Validator, validators=VALIDATORS)
-        return validator_class(
-            main_schema, format_checker=FormatChecker(), registry=registry
-        )
+    def _validate(self, data):
+        if self._validator.is_valid(data):
+            self._errors.append({"error": False, "msg": None, "value": None})
 
-    def _load_definitions(self, main_id, main_resource, definitions):
-        resources = [(main_id, main_resource)]
-        if definitions:
-            for rootname, definition in definitions.items():
-                def_id = urljoin(main_id, rootname)
-                resources.append((def_id, DRAFT7.create_resource(definition)))
-
-        return Registry().with_resources(resources)
-
-    def errors(self, data, schema):
-        errors = []
         try:
-            for error in self.validator.iter_errors(data):
-                errors.append(
+            for error in self._validator.iter_errors(data):
+                self._errors.append(
                     {
-                        "error": error.message,
+                        "error": True,
+                        "msg": error.message,
                         "value": ", ".join([prop for prop in error.path]),
                     }
                 )
         except exceptions._WrappedReferencingError as e:
-            errors.append(
-                {"error": f"Unresolved reference error: {str(e)}", "value": "N/A"}
+            self._errors.append(
+                {
+                    "error": True,
+                    "msg": f"Unresolved reference error: {str(e)}",
+                    "value": None,
+                }
             )
-        return errors
+        return self._errors
+
+    def results(self, data):
+        return self._validate(data)

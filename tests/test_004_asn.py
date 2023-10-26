@@ -1,17 +1,8 @@
-import pathlib
-import sys
+import jsonschema
+from jsonschema import Draft7Validator, exceptions
+from jsonschema.validators import extend
 
-from jsonschema import Draft7Validator
-
-sys.path.append(str(pathlib.Path(__file__).parent.parent.absolute()))
-
-import pytest
-from jsonschema import (
-    Draft7Validator,
-    FormatChecker,
-)
-
-from src.plugins.json_schema.asn import (
+from plugins.json_schema.asn import (
     asn,
     asn_2byte,
     asn_4byte,
@@ -48,108 +39,39 @@ def basic_validator():
     return _basic_validator
 
 
-def test_asn_valid(basic_validator):
-    schema = {
-        "properties": {"asn": {"type": "integer", "asn": True}},
-    }
-    data = {"asn": 1000}
-
-    v = basic_validator(schema=schema)
-    assert v.validate(instance=data) == None
+# Test for is_public
+def test_asn_public_valid():
+    """Test for asn_public with valid data."""
+    schema = {"type": "string", "format": "public-asn"}
+    data = "8000"  # or any other valid public ASN
+    jsonschema.validate(data, schema, format_checker=jsonschema.draft7_format_checker)
 
 
-def test_asn_public_valid(basic_validator):
-    schema = {
-        "properties": {"asn_public": {"type": "string", "asn_public": True}},
-    }
-    data = {"asn_public": "valid_data_for_public_asn"}  # Replace with actual valid data
-    v = basic_validator(schema=schema)
-    assert v.validate(instance=data) == None
+def test_asn_public_invalid():
+    """Test for asn_public with invalid data."""
+    schema = {"type": "string", "format": "public-asn"}
+    data = "65000"  # or any other invalid public ASN
+    with pytest.raises(exceptions.ValidationError):
+        jsonschema.validate(
+            data, schema, format_checker=jsonschema.draft7_format_checker
+        )
 
 
-def test_asn_private_valid(basic_validator):
-    schema = {
-        "properties": {"asn_private": {"type": "string", "asn_private": True}},
-    }
-    data = {
-        "asn_private": "valid_data_for_private_asn"
-    }  # Replace with actual valid data
-    v = basic_validator(schema=schema)
-    assert v.validate(instance=data)
 
 
-def test_asn_reserved_valid(basic_validator):
-    schema = {
-        "properties": {"asn_reserved": {"type": "string", "asn_reserved": True}},
-    }
-    data = {
-        "asn_reserved": "valid_data_for_reserved_asn"
-    }  # Replace with actual valid data
-    v = basic_validator(schema=schema)
-    assert v.validate(instance=data) == None
+# Test for is_private
+def test_asn_private_valid():
+    """Test for asn_public with valid data."""
+    schema = {"type": "string", "format": "private-asn"}
+    data = "65000"  # or any other valid private ASN
+    jsonschema.validate(data, schema, format_checker=jsonschema.draft7_format_checker)
 
 
-def test_asn_documentation_valid(basic_validator):
-    schema = {
-        "properties": {
-            "asn_documentation": {"type": "string", "asn_documentation": True}
-        },
-    }
-    data = {
-        "asn_documentation": "valid_data_for_documentation_asn"
-    }  # Replace with actual valid data
-    v = basic_validator(schema=schema)
-    assert v.validate(instance=data) == None
-
-
-def test_asn_2byte_valid(basic_validator):
-    schema = {
-        "properties": {"asn_2byte": {"type": "string", "asn_2byte": True}},
-    }
-    data = {"asn_2byte": "valid_data_for_2byte_asn"}  # Replace with actual valid data
-    v = basic_validator(schema=schema)
-    assert v.validate(instance=data) == None
-
-
-def test_asn_4byte_valid(basic_validator):
-    schema = {
-        "properties": {"asn_4byte": {"type": "string", "asn_4byte": True}},
-    }
-    data = {"asn_4byte": "valid_data_for_4byte_asn"}  # Replace with actual valid data
-    v = basic_validator(schema=schema)
-    assert v.validate(instance=data) == None
-
-
-def test_asn_asn_valid(basic_validator):
-    schema = {
-        "properties": {"asn_asn": {"type": "string", "asn_asn": True}},
-    }
-    data = {"asn_asn": "valid_data_for_asn"}  # Replace with actual valid data
-    v = basic_validator(schema=schema)
-    assert v.validate(instance=data) == None
-
-
-def test_asn_dot_notation_valid(basic_validator):
-    schema = {
-        "properties": {
-            "asn_dot-notation": {"type": "string", "asn_dot-notation": True}
-        },
-    }
-    data = {
-        "asn_dot-notation": "valid_data_for_dot_notation"
-    }  # Replace with actual valid data
-    v = basic_validator(schema=schema)
-    assert v.validate(instance=data) == None
-
-
-def test_asn_int_notation_valid(basic_validator):
-    schema = {
-        "properties": {
-            "asn_int-notation": {"type": "string", "asn_int-notation": True}
-        },
-    }
-    data = {
-        "asn_int-notation": "valid_data_for_int_notation"
-    }  # Replace with actual valid data
-    v = basic_validator(schema=schema)
-    assert v.validate(instance=data) == None
+def test_asn_private_invalid():
+    """Test for asn_public with invalid data."""
+    schema = {"type": "string", "format": "private-asn"}
+    data = "8000"  # or any other invalid private ASN
+    with pytest.raises(exceptions.ValidationError):
+        jsonschema.validate(
+            data, schema, format_checker=jsonschema.draft7_format_checker
+        )

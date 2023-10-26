@@ -1,5 +1,3 @@
-# The `ValidationRunner` class is responsible for loading a schema and definitions, validating
-# documents against the schema, and logging any errors.
 import pathlib
 import sys
 from pathlib import Path
@@ -8,67 +6,43 @@ from rich import print as rprint
 
 sys.path.append(str(pathlib.Path(__file__).parent.parent.absolute()))
 
-import logging
+from pathlib import Path
 
 from helpers import load_yaml_or_json
 from src.plugins.json_schema.validator import JSONSchemaValidator
 
 
-class ValidationRunner:
-    def __init__(self, document_path, schema_path, validator, definition_paths=[]):
-        self.validator = validator
-        self.document_path = Path(document_path)
-        self.schema_path = Path(schema_path)
-        self.definition_paths = [
-            Path(path) for path in definition_paths if path is not None
-        ]
+class SchemaValidator:
+    def __init__(self, document_path, schema, validator_engine):
+        self._validator = validator_engine
+        self._document_path = Path(document_path)
+        self._schema = Path(schema)
+        self._errors = []
 
-    def load_schema(self):
-        return load_yaml_or_json(self.schema_path)
+    def _load_schema(self):
+        self._schema = load_yaml_or_json(self._schema)
 
-    def load_definitions(self):
-        definitions = {}
-        for def_path in self.definition_paths:
-            for definition_file in def_path.iterdir():
-                if definition_file.suffix in [".yaml", ".yml", ".json"]:
-                    rootname = definition_file.stem
-                    definitions[rootname] = load_yaml_or_json(definition_file)
-        return definitions
+    def initialize(self):
+        self._load_schema()
+        self._validator.initialize(self._schema)
 
-    def validate_documents(self):
-        errors = []
-        for filename in self.document_path.iterdir():
+    def _validate(self):
+        for filename in self._document_path.iterdir():
             if filename.suffix in [".yaml", ".yml", ".json"]:
-                host_vars_data = load_yaml_or_json(filename)
-                file_errors = self.validator.errors(host_vars_data, self.schema)
+                data = load_yaml_or_json(filename)
+                self._errors += self._validator.results(data)
+        return self._errors
 
-                if file_errors:
-                    for error in file_errors:
-                        logging.error(
-                            f"Error in file {filename.name}: {error['error']}"
-                        )
-                        rprint(
-                            f":cross_mark: File: {filename.name} Error: {error['error']}"
-                        )
-                    errors.extend(file_errors)
-                else:
-                    logging.info(f"File {filename.name} validated successfully.")
-                    rprint(f"File: {filename.name} - No validation errors found!")
-        return errors
-
-    def run(self):
-        schema = self.load_schema()
-        self.schema = schema
-        definitions = self.load_definitions()
-        self.validator.setup(schema, definitions)
-        return self.validate_documents()
+    @property
+    def results(self):
+        return self._validate()
 
 
 if __name__ == "__main__":
-    runner = ValidationRunner(
+    schema_validator = SchemaValidator(
         document_path="examples/host_vars",
-        schema_path="examples/schema.yaml",
-        validator=JSONSchemaValidator(),
-        definition_paths=[],
+        schema="examples/schema.yaml",
+        validator_engine=JSONSchemaValidator(),
     )
-    runner.run()
+    schema_validator.initialize()
+    rprint(schema_validator.results)

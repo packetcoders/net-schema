@@ -3,6 +3,37 @@ import ipaddress
 from jsonschema.exceptions import ValidationError
 
 
+def ip(validator, value, instance, schema) -> None:
+    """Check if the IP address is an IP data type."""
+    try:
+        if "/" in instance:
+            # If the string contains a '/', it's an IP network
+            ip = ipaddress.ip_network(instance, strict=False)
+        else:
+            # Otherwise, it's an IP address
+            ipaddress.ip_address(instance)
+    except ValueError:
+        yield ValidationError("Invalid IP address or network")
+
+
+def ip_ipv4(validator, value, instance, schema) -> None:
+    """Check if the IP address is an IPv4 address."""
+    try:
+        if not isinstance(ipaddress.ip_address(instance), ipaddress.IPv4Address):
+            yield ValidationError(f"'{instance}' is not an IPv4 address.")
+    except ValueError:
+        yield ValidationError(f"'{instance}' is not a valid IP address.")
+
+
+def ip_ipv6(validator, value, instance, schema) -> None:
+    """Check if the IP address is an IPv6 address."""
+    try:
+        if not isinstance(ipaddress.ip_address(instance), ipaddress.IPv6Address):
+            yield ValidationError(f"'{instance}' is not an IPv6 address.")
+    except ValueError:
+        yield ValidationError(f"'{instance}' is not a valid IP address.")
+
+
 def ip_multicast(validator, value, instance, schema) -> None:
     """Check if the IP address is a multicast address."""
     try:

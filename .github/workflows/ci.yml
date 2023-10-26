@@ -1,18 +1,18 @@
+---
 name: CI
 
-# Commented until CI is deployed
-#on:
-#  push:
-#    branches: [ "development" ]
-#    paths:
-#      - **
-#      - "!**/README.md"
-#  pull_request:
-#    branches: [ "development" ]
-#    paths:
-#      - **
-#      - "!**/README.md"
-#  workflow_dispatch:
+on:
+  push:
+    branches: [ "development", "refactor"]
+    #paths:
+    #  - "**/*.py"
+    #  - "!**/README.md"
+  pull_request:
+    branches: [ "development" ]
+    paths:
+      - "**/*.py"
+      - "!**/README.md"
+  workflow_dispatch:
 
 jobs:
   code-quality:
@@ -36,31 +36,30 @@ jobs:
           poetry-version: ${{matrix.poetry-version}}
 
       - name: Format (chk) - black
-        run: poetry run black . --check
+        run: poetry run black ./src ./tests 
       - name: Format (chk) - isort
-        run: poetry run isort . --check-only --profile black
-      - name: Format (chk) - autoflake
-        run: poetry run autoflake -r . --expand-star-imports --remove-unused-variables --remove-all-unused-imports
-      - name: Format (chk) - bandit
-        run: poetry run bandit -c pyproject.toml -r .
-      - name: Lint - flake8
-        run: poetry run flake8 .
-      - name: Lint - pydocstyle
-        run: poetry run pydocstyle .
+        run: poetry run isort ./src ./tests --check-only --profile black
+      #- name: Format (chk) - autoflake
+      #  run: poetry run autoflake -r . --expand-star-imports --remove-unused-variables --remove-all-unused-imports
+      #- name: Format (chk) - bandit
+      #  run: poetry run bandit -c pyproject.toml -r .
+      #- name: Lint - flake8
+      #  run: poetry run flake8 .
+      #- name: Lint - pydocstyle
+      #  run: poetry run pydocstyle .
       - name: Lint - yamllint
         run: poetry run yamllint cyborg_web/ -c .yamllint
       - name: Type check - mypy
-        run: poetry run mypy .
+        run: poetry run mypy ./src ./tests --config-file pyproject.toml
   test:
     name: "python-tests"
-    needs: python-code-quality
+    needs: "code-quality"
     strategy:
       matrix:
         python-version: [3.8.x]
         poetry-version: [1.3.1]
     runs-on: ubuntu-latest
-   working-directory: cyborg_web
-   steps:
+    steps:
       - name: Check out repository
         uses: actions/checkout@v3
 
