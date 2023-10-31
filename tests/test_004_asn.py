@@ -1,6 +1,5 @@
 import jsonschema
 from jsonschema import Draft7Validator, exceptions
-from jsonschema.validators import extend
 
 from plugins.json_schema.asn import (
     asn,
@@ -55,8 +54,6 @@ def test_asn_public_invalid():
         jsonschema.validate(
             data, schema, format_checker=jsonschema.draft7_format_checker
         )
-
-
 
 
 # Test for is_private

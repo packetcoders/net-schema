@@ -40,9 +40,6 @@ CUSTOM_VALIDATORS = {**ASN_VALIDATORS}
 
 
 class JSONSchemaValidator:
-    # def __init__(self):
-    #    pass
-
     def initialize(self, schema):
         self._validator = Draft7Validator(schema, format_checker=FormatChecker())
         self._load_custom_validators()
@@ -52,26 +49,37 @@ class JSONSchemaValidator:
         self._validator.VALIDATORS.update(CUSTOM_VALIDATORS)
 
     def _validate(self, data):
+        self._errors = []
         if self._validator.is_valid(data):
             self._errors.append({"error": False, "msg": None, "value": None})
-
-        try:
-            for error in self._validator.iter_errors(data):
+        else:
+            try:
+                for error in self._validator.iter_errors(data):
+                    self._errors.append(
+                        {
+                            "error": True,
+                            "msg": error.message,
+                            "value": ", ".join([prop for prop in error.path])
+                            if error.path
+                            else None,
+                        }
+                    )
+            except exceptions._WrappedReferencingError as e:
                 self._errors.append(
                     {
                         "error": True,
-                        "msg": error.message,
-                        "value": ", ".join([prop for prop in error.path]),
+                        "msg": f"Unresolved reference error: {str(e)}",
+                        "value": None,
                     }
                 )
-        except exceptions._WrappedReferencingError as e:
-            self._errors.append(
-                {
-                    "error": True,
-                    "msg": f"Unresolved reference error: {str(e)}",
-                    "value": None,
-                }
-            )
+            except Exception as e:
+                self._errors.append(
+                    {
+                        "error": True,
+                        "msg": f"Unknown error: {str(e)}",
+                        "value": None,
+                    }
+                )
         return self._errors
 
     def results(self, data):
