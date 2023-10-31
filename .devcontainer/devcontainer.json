@@ -24,11 +24,83 @@
 	// "forwardPorts": [],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "poetry install",
+	"postCreateCommand": "poetry config virtualenvs.in-project true && poetry install",
 
 	// Configure tool-specific properties.
-	// "customizations": {},
-
-	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
-	// "remoteUser": "root"
+	"customizations": {
+		"vscode": {
+			"settings": {
+				"[python]": {
+					"editor.defaultFormatter": "ms-python.black-formatter",
+					"venvFolders": [
+						"venv",
+						".venv"
+					],
+					"editor.formatOnSave": true,
+					"files.trimTrailingWhitespace": true
+				},
+				"[plaintext]": {
+					"files.trimTrailingWhitespace": false
+				},
+				"editor.rulers": [
+					80,
+					100
+				],
+				"editor.bracketPairColorization.enabled": true,
+				"editor.codeActionsOnSave": {
+					"source.organizeImports": true
+				},
+				"editor.trimAutoWhitespace": false,
+				"extensions.autoCheckUpdates": true,
+				"extensions.ignoreRecommendations": true,
+				"files.insertFinalNewline": true,
+				"python.analysis.extraPaths": [
+					"/workspaces/net-schema",
+					"/workspaces/net-schema/.venv/lib/python3.8/site-packages"
+				],
+				"python.pyright.typeCheckingMode": "basic",
+				"python.analysis.typeCheckingMode": "basic",
+				"python.autoComplete.extraPaths": [
+					"/workspaces/net-schema",
+					"/workspaces/net-schema/.venv/lib/python3.8/site-packages"
+				],
+				"python.pythonPath": "/workspaces/net-schema/.venv/bin/python3",
+				"python.terminal.activateEnvironment": true,
+				"python.testing.pytestArgs": [
+					"tests"
+				],
+				"python.testing.pytestEnabled": true,
+				"python.testing.unittestEnabled": false,
+				"python.venvPath": "/workspaces/net-schema/.venv"
+			},
+			"extensions": [
+				"ms-python.python",
+				"Codium.codium",
+				"GSGBen.fortigate-fortios-syntax",
+				"GitHub.copilot",
+				"GitHub.copilot-chat",
+				"GitHub.copilot-labs",
+				"GitHub.vscode-codeql",
+				"GitHub.vscode-github-actions",
+				"GitHub.vscode-pull-request-github",
+				"Gruntfuggly.todo-tree",
+				"KevinRose.vsc-python-indent",
+				"Tyriar.sort-lines",
+				"charliermarsh.ruff",
+				"esbenp.prettier-vscode",
+				"hbenl.vscode-test-explorer",
+				"ms-vscode.test-adapter-converter",
+				"ms-python.black-formatter",
+				"ms-python.flake8",
+				"ms-python.isort",
+				"ms-python.mypy-type-checker",
+				"ms-python.pylint",
+				"mutantdino.resourcemonitor",
+				"paulomenezes.duplicated-code",
+				"piotrpalarz.vscode-gitignore-generator",
+				"sourcery.sourcery",
+				"yzhang.markdown-all-in-one"
+			]
+		}
+	}
 }
