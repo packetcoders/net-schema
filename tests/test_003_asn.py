@@ -33,7 +33,22 @@ ASN_VALIDATORS = {
 
 VALIDATORS = {**ASN_VALIDATORS}
 ASN_FIXTURE = f"{Path(__file__).parent}/fixtures/asn.json"
-ASN_FIXTURE_CHECKS = ["asn_min", "asn_max"]
+ASN_FIXTURE_CHECKS = [
+    "asn_min",
+    "asn_max",
+    "asn_public_min",
+    "asn_public_max",
+    "asn_private_min",
+    "asn_private_max",
+    "asn_reserved_min",
+    "asn_reserved_max",
+    "asn_documentation_min",
+    "asn_documentation_max",
+    "asn_2byte_min",
+    "asn_2byte_max",
+    "asn_4byte_min",
+    "asn_4byte_max"
+]
 
 
 @pytest.fixture(scope="session")
