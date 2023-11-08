@@ -1,6 +1,11 @@
 import logging
+import sys
+from pathlib import Path
 
 from jsonschema import Draft7Validator, FormatChecker, exceptions
+from rich import print as rprint
+
+sys.path.append(str(Path(__file__).parent.parent.parent))
 
 from plugins.json_schema.asn import (
     asn,
@@ -50,6 +55,7 @@ class JSONSchemaValidator:
 
     def _validate(self, data):
         self._errors = []
+
         if self._validator.is_valid(data):
             self._errors.append({"error": False, "msg": None, "value": None})
         else:
@@ -84,3 +90,16 @@ class JSONSchemaValidator:
 
     def results(self, data):
         return self._validate(data)
+
+
+if __name__ == "__main__":
+    schema = {
+        "type": "object",
+        "properties": {"asn": {"type": "string", "asn": True}},
+        "required": ["asn"],
+    }
+    data = {"asn": "4294967296"}
+
+    schema_validator = JSONSchemaValidator()
+    schema_validator.initialize(schema=schema)
+    rprint(schema_validator.results(data))

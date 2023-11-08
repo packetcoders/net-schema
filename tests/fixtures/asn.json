@@ -1,0 +1,38 @@
+{
+        "asn_min": {
+        "schema": {
+            "type": "object",
+            "properties": {
+                "asn_value": {
+                    "asn": true
+                }
+            }
+        },
+        "data": {
+            "valid": {
+                "asn_value": "0"
+            },
+            "invalid": {
+                "asn_value": "-1"
+            }
+        }
+    },
+    "asn_max": {
+        "schema": {
+            "type": "object",
+            "properties": {
+                "asn_value": {
+                    "asn": true
+                }
+            }
+        },
+        "data": {
+            "valid": {
+                "asn_value": "4294967295"
+            },
+            "invalid": {
+                "asn_value": "4294967296"
+            }
+        }
+    }
+}
