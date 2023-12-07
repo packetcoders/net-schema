@@ -19,6 +19,9 @@ from plugins.json_schema.asn import (
     asn_reserved,
 )
 
+from plugins.json_schema.vlan import vlan, vlan_extended, vlan_standard
+from plugins.json_schema.ip import ip, ip_address, ip_network, ipv4, ipv6
+
 logging.basicConfig(
     level=logging.DEBUG,
     format="%(asctime)s - %(levelname)s - %(message)s",
@@ -28,20 +31,60 @@ logging.basicConfig(
 
 DEFAULT_ID = "http://packetcoders.io/schemas/main"
 
+
+from plugins.json_schema.asn import (
+    asn,
+    asn_2byte,
+    asn_4byte,
+    asn_documentation,
+    asn_notation_dot,
+    asn_notation_int,
+    asn_private,
+    asn_public,
+    asn_reserved,
+)
+from plugins.json_schema.ip import (
+    ip,
+    ip_ipv4,
+    ip_ipv6,
+    ip_linklocal,
+    ip_multicast,
+    ip_private,
+    ip_reserved,
+)
+
+from plugins.json_schema.vlan import vlan, vlan_extended, vlan_standard
+
 ASN_VALIDATORS = {
-    "public": asn_public,
-    "private": asn_private,
-    "reserved": asn_reserved,
-    "documentation": asn_documentation,
-    "2byte": asn_2byte,
-    "4byte": asn_4byte,
+    "asn_public": asn_public,
+    "asn_private": asn_private,
+    "asn_reserved": asn_reserved,
+    "asn_documentation": asn_documentation,
+    "asn_2byte": asn_2byte,
+    "asn_4byte": asn_4byte,
     "asn": asn,
-    "dot-notation": asn_notation_dot,
-    "int-notation": asn_notation_int,
+    "asn_dot-notation": asn_notation_dot,
+    "asn_int-notation": asn_notation_int,
 }
 
+IP_VALIDATORS = {
+    "ip": ip,
+    "ip_ipv4": ip_ipv4,
+    "ip_ipv6": ip_ipv6,
+    "ip_multicast": ip_multicast,
+    "ip_private": ip_private,
+    "ip_reserved": ip_reserved,
+    "ip_linklocal": ip_linklocal,
+}
 
-CUSTOM_VALIDATORS = {**ASN_VALIDATORS}
+VLAN_VALIDATORS = {
+    "vlan": vlan,
+    "vlan-standard": vlan_standard,
+    "vlan-extended": vlan_extended,
+}
+
+VALIDATORS = { **ASN_VALIDATORS, **IP_VALIDATORS, **VLAN_VALIDATORS }
+
 
 
 class JSONSchemaValidator:
@@ -51,7 +94,7 @@ class JSONSchemaValidator:
         self._errors = []
 
     def _load_custom_validators(self):
-        self._validator.VALIDATORS.update(CUSTOM_VALIDATORS)
+        self._validator.VALIDATORS.update(VALIDATORS)
 
     def _validate(self, data):
         self._errors = []

@@ -1,0 +1,41 @@
+{
+    "vlan_valid": {
+        "schema": {
+            "type": "object",
+            "properties": {
+                "vlan_id": { "type": "integer", "vlan": true }
+            },
+            "required": ["vlan_id"]
+        },
+        "data": {
+            "valid": { "vlan_id": 100 },
+            "invalid": { "vlan_id": 4095 }
+        }
+    },
+    "vlan_standard_valid": {
+        "schema": {
+            "type": "object",
+            "properties": {
+                "vlan_id": { "type": "integer", "vlan_standard": true }
+            },
+            "required": ["vlan_id"]
+        },
+        "data": {
+            "valid": { "vlan_id": 1001 },
+            "invalid": { "vlan_id": 1002 }
+        }
+    },
+    "vlan_extended_valid": {
+        "schema": {
+            "type": "object",
+            "properties": {
+                "vlan_id": { "type": "integer", "vlan_extended": true }
+            },
+            "required": ["vlan_id"]
+        },
+        "data": {
+            "valid": { "vlan_id": 4094 },
+            "invalid": { "vlan_id": 1005 }
+        }
+    }
+}

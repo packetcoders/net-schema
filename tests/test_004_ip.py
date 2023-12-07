@@ -3,7 +3,6 @@ import sys
 from pathlib import Path
 
 import pytest
-from jsonschema import Draft7Validator, FormatChecker
 
 sys.path.append(f"{Path(__file__).parent.parent}/src")
 
