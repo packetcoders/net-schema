@@ -4,16 +4,11 @@ from jsonschema.exceptions import ValidationError
 
 
 def ip(validator, value, instance, schema) -> None:
-    """Check if the IP address is an IP data type."""
+    """Check if the IP address is an IP address."""
     try:
-        if "/" in instance:
-            # If the string contains a '/', it's an IP network
-            ip = ipaddress.ip_network(instance, strict=False)
-        else:
-            # Otherwise, it's an IP address
-            ipaddress.ip_address(instance)
+        ipaddress.ip_address(instance)
     except ValueError:
-        yield ValidationError("Invalid IP address or network")
+        yield ValidationError(f"'{instance}' is not a valid IP address.")
 
 
 def ip_ipv4(validator, value, instance, schema) -> None:
@@ -52,29 +47,11 @@ def ip_private(validator, value, instance, schema) -> None:
         yield ValidationError(f"'{instance}' is not a valid IP address.")
 
 
-def is_unspecified(validator, value, instance, schema) -> None:
-    """Check if the IP address is an unspecified address."""
-    try:
-        if not ipaddress.ip_address(instance).is_unspecified:
-            yield ValidationError(f"'{instance}' is not an unspecified IP address.")
-    except ValueError:
-        yield ValidationError(f"'{instance}' is not a valid IP address.")
-
-
 def ip_reserved(validator, value, instance, schema) -> None:
     """Check if the IP address is a reserved address."""
     try:
         if not ipaddress.ip_address(instance).is_reserved:
             yield ValidationError(f"'{instance}' is not a reserved IP address.")
-    except ValueError:
-        yield ValidationError(f"'{instance}' is not a valid IP address.")
-
-
-def ip_loopback(validator, value, instance, schema) -> None:
-    """Check if the IP address is a loopback address."""
-    try:
-        if not ipaddress.ip_address(instance).is_loopback:
-            yield ValidationError(f"'{instance}' is not a loopback IP address.")
     except ValueError:
         yield ValidationError(f"'{instance}' is not a valid IP address.")
 
@@ -106,48 +83,9 @@ def ip_ipv6(validator, value, instance, schema) -> None:
         yield ValidationError(f"'{instance}' is not a valid IP address.")
 
 
-def ip_ipaddress(validator, value, instance, schema) -> None:
-    """Check if the IP address is an IP address."""
-    try:
-        ipaddress.ip_address(instance)
-    except ValueError:
-        yield ValidationError(f"'{instance}' is not a valid IP address.")
-
-
 def ip_network(validator, value, instance, schema) -> None:
     """Check if the IP address is a network."""
     try:
         ipaddress.ip_network(instance, strict=False)
     except ValueError:
         yield ValidationError(f"'{instance}' is not a valid IP network.")
-
-
-def ip_interface(validator, value, instance, schema) -> None:
-    """Check if the IP address is an IP interface."""
-    try:
-        ipaddress.ip_interface(instance)
-    except ValueError:
-        yield ValidationError(f"'{instance}' is not a valid IP interface.")
-
-
-def ip_shared(validator, value, instance, schema) -> None:
-    """Check if the IP address is a shared address."""
-    try:
-        if instance not in ipaddress.ip_network("100.64.0.0/10"):
-            yield ValidationError(f"'{instance}' is not a shared IP address.")
-    except ValueError:
-        yield ValidationError(f"'{instance}' is not a valid IP address.")
-
-
-def is_documentation(validator, value, instance, schema) -> None:
-    """Check if the IP address is a documentation address."""
-    try:
-        ip = ipaddress.ip_address(instance)
-        if not (
-            ip.is_reserved
-            and not ip.is_private
-            and instance not in ipaddress.ip_network("100.64.0.0/10")
-        ):
-            yield ValidationError(f"'{instance}' is not a documentation IP address.")
-    except ValueError:
-        yield ValidationError(f"'{instance}' is not a valid IP address.")

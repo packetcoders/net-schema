@@ -3,35 +3,10 @@ import sys
 from pathlib import Path
 
 import pytest
-from jsonschema import Draft7Validator, FormatChecker
 
 sys.path.append(f"{Path(__file__).parent.parent}/src")
 
-from plugins.json_schema.asn import (
-    asn,
-    asn_2byte,
-    asn_4byte,
-    asn_documentation,
-    asn_notation_dot,
-    asn_notation_int,
-    asn_private,
-    asn_public,
-    asn_reserved,
-)
 
-ASN_VALIDATORS = {
-    "asn_public": asn_public,
-    "asn_private": asn_private,
-    "asn_reserved": asn_reserved,
-    "asn_documentation": asn_documentation,
-    "asn_2byte": asn_2byte,
-    "asn_4byte": asn_4byte,
-    "asn": asn,
-    "asn_dot-notation": asn_notation_dot,
-    "asn_int-notation": asn_notation_int,
-}
-
-VALIDATORS = {**ASN_VALIDATORS}
 ASN_FIXTURE = f"{Path(__file__).parent}/fixtures/asn.json"
 ASN_FIXTURE_CHECKS = [
     "asn_min",
@@ -47,7 +22,7 @@ ASN_FIXTURE_CHECKS = [
     "asn_2byte_min",
     "asn_2byte_max",
     "asn_4byte_min",
-    "asn_4byte_max"
+    "asn_4byte_max",
 ]
 
 
@@ -56,16 +31,6 @@ def asn_fixture():
     with open(ASN_FIXTURE) as file:
         data = json.load(file)
     return data
-
-
-@pytest.fixture(scope="session")
-def basic_validator():
-    def _basic_validator(schema):
-        v = Draft7Validator(schema=schema, format_checker=FormatChecker())
-        Draft7Validator.VALIDATORS.update(VALIDATORS)
-        return v
-
-    return _basic_validator
 
 
 @pytest.mark.parametrize("check", ASN_FIXTURE_CHECKS)

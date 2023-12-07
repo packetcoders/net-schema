@@ -252,10 +252,10 @@
             },
             "data": {
                 "valid": {
-                    "asn_value": "65536"
+                    "asn_value": "0"
                 },
                 "invalid": {
-                    "asn_value": "65535"
+                    "asn_value": "4294967296"
                 }
             }
         },

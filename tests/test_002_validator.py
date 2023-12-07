@@ -28,6 +28,4 @@ def test_valid_data_validation(validator):
 
 def test_invalid_data_validation(validator):
     result = validator.results(bad_data)
-    assert any(
-        error["error"] for error in result
-    )
+    assert any(error["error"] for error in result)
