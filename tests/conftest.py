@@ -26,7 +26,6 @@ from plugins.json_schema.ip import (
     ip_private,
     ip_reserved,
 )
-
 from plugins.json_schema.vlan import vlan, vlan_extended, vlan_standard
 
 ASN_VALIDATORS = {
@@ -53,11 +52,11 @@ IP_VALIDATORS = {
 
 VLAN_VALIDATORS = {
     "vlan": vlan,
-    "vlan-standard": vlan_standard,
-    "vlan-extended": vlan_extended,
+    "vlan_standard": vlan_standard,
+    "vlan_extended": vlan_extended,
 }
 
-VALIDATORS = {**ASN_VALIDATORS, **IP_VALIDATORS, **VLAN_VALIDATORS }
+VALIDATORS = {**ASN_VALIDATORS, **IP_VALIDATORS, **VLAN_VALIDATORS}
 
 
 @pytest.fixture(scope="session")

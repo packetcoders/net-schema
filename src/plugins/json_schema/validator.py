@@ -18,9 +18,8 @@ from plugins.json_schema.asn import (
     asn_public,
     asn_reserved,
 )
-
+from plugins.json_schema.ip import ip
 from plugins.json_schema.vlan import vlan, vlan_extended, vlan_standard
-from plugins.json_schema.ip import ip, ip_address, ip_network, ipv4, ipv6
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -53,8 +52,6 @@ from plugins.json_schema.ip import (
     ip_reserved,
 )
 
-from plugins.json_schema.vlan import vlan, vlan_extended, vlan_standard
-
 ASN_VALIDATORS = {
     "asn_public": asn_public,
     "asn_private": asn_private,
@@ -83,8 +80,7 @@ VLAN_VALIDATORS = {
     "vlan-extended": vlan_extended,
 }
 
-VALIDATORS = { **ASN_VALIDATORS, **IP_VALIDATORS, **VLAN_VALIDATORS }
-
+VALIDATORS = {**ASN_VALIDATORS, **IP_VALIDATORS, **VLAN_VALIDATORS}
 
 
 class JSONSchemaValidator:
