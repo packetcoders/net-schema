@@ -31,17 +31,6 @@ logging.basicConfig(
 DEFAULT_ID = "http://packetcoders.io/schemas/main"
 
 
-from plugins.json_schema.asn import (
-    asn,
-    asn_2byte,
-    asn_4byte,
-    asn_documentation,
-    asn_notation_dot,
-    asn_notation_int,
-    asn_private,
-    asn_public,
-    asn_reserved,
-)
 from plugins.json_schema.ip import (
     ip,
     ip_ipv4,
