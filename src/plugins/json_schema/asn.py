@@ -39,14 +39,19 @@ def asn_to_int(instance) -> int:
 # Custom ASN Validators
 def asn(validator, value, instance, schema) -> None:
     """Returns True if the ASN is a valid ASN, False otherwise."""
-    try:
-        asn_int = asn_to_int(instance)
+    # Check if instance is a string given schema type excepts a string.
+    if not isinstance(instance, str):
+        # Without this, you would get a jsonschema validation error of type string & type asn for the same key.
+        pass
+    else:
+        try:
+            asn_int = asn_to_int(instance)
 
-        if not (ASN_MIN <= asn_int <= ASN_MAX):
-            yield ValidationError(f"'{instance}' is not a valid ASN.")
+            if not (ASN_MIN <= asn_int <= ASN_MAX):
+                yield ValidationError(f"'{instance}' is not a valid ASN.")
 
-    except ValidationError as e:
-        yield e
+        except ValidationError as e:
+            yield e
 
 
 def asn_public(validator, value, instance, schema) -> None:
