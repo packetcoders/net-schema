@@ -1,8 +1,20 @@
 [tool.poetry]
 name = "net_schema"
 version = "0.1.0"
-description = ""
-authors = ["contact@packetcoders.io"]
+description = "Net Schema is a library that allows you to validate the schema of your YAML documents. For example your Ansible host vars or group vars."
+homepage = "https://github.com/packetcoders/net-schema"
+documentation = "https://github.com/packetcoders/net-schema"
+authors = ["PacketCoders <contact@packetcoders.io>"]
+readme = "README.md"
+packages = [{include = "src"}]
+keywords = ["jsonschema", "python"]
+classifiers = [
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3.8",
+]
+
+[tool.poetry.scripts]
+net_schema = "src.main:run"
 
 [tool.poetry.dependencies]
 python = "^3.8"
