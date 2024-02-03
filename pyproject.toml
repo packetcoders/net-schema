@@ -13,6 +13,9 @@ classifiers = [
     "Programming Language :: Python :: 3.8",
 ]
 
+[tool.poetry.scripts]
+net_schema = "src.main:run"
+
 [tool.poetry.dependencies]
 python = "^3.8"
 jsonschema = "^4.19.0"

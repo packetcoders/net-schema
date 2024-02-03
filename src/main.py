@@ -6,9 +6,7 @@ from rich import print as rprint
 
 sys.path.append(str(pathlib.Path(__file__).parent.parent.absolute()))
 
-from pathlib import Path
-
-from helpers import load_yaml_or_json
+from src.helpers import load_yaml_or_json
 from src.plugins.json_schema.validator import JSONSchemaValidator
 
 
@@ -41,7 +39,7 @@ class SchemaValidator:
         return self._validate()
 
 
-if __name__ == "__main__":
+def run():
     schema_validator = SchemaValidator(
         document_path="examples/host_vars",
         schema="examples/schema.yaml",
@@ -49,3 +47,7 @@ if __name__ == "__main__":
     )
     schema_validator.initialize()
     rprint(schema_validator.results)
+
+
+if __name__ == "__main__":
+    run()
