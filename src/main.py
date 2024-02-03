@@ -16,23 +16,25 @@ class SchemaValidator:
         self._document_path = Path(document_path)
         self._schema = Path(schema)
         self._errors = []
+        self._warnings = []
 
     def initialize(self):
         self._load_schema()
         self._validator.initialize(self._schema)
 
     def _load_schema(self):
-        self._schema = load_yaml_or_json(self._schema)
+        self._schema, warning_msgs = load_yaml_or_json(self._schema)
 
     def _validate(self):
         for filename in self._document_path.iterdir():
             if filename.suffix in [".yaml", ".yml", ".json"]:
-                data = load_yaml_or_json(filename)
+                data, file_warnings = load_yaml_or_json(filename)
                 file_errors = self._validator.results(data)
                 for error in file_errors:
                     error["filename"] = str(filename)  # Add filename key to each error
                 self._errors.extend(file_errors)
-        return self._errors
+                self._warnings.extend(file_warnings)
+        return {"errors": self._errors, "warnings": self._warnings}
 
     @property
     def results(self):
