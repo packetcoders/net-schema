@@ -3,12 +3,12 @@ name: CI
 
 on:
   push:
-    branches: [ "development", "refactor"]
+    branches: ["development", "refactor"]
     #paths:
     #  - "**/*.py"
     #  - "!**/README.md"
   pull_request:
-    branches: [ "development" ]
+    branches: ["development"]
     paths:
       - "**/*.py"
       - "!**/README.md"
@@ -36,7 +36,7 @@ jobs:
           poetry-version: ${{matrix.poetry-version}}
 
       - name: Format (chk) - black
-        run: poetry run black ./src ./tests 
+        run: poetry run black ./src ./tests
       - name: Format (chk) - isort
         run: poetry run isort ./src ./tests --check-only --profile black
       #- name: Format (chk) - autoflake
@@ -48,7 +48,7 @@ jobs:
       #- name: Lint - pydocstyle
       #  run: poetry run pydocstyle .
       - name: Lint - yamllint
-        run: poetry run yamllint cyborg_web/ -c .yamllint
+        run: poetry run yamllint src/ -c .yamllint
       - name: Type check - mypy
         run: poetry run mypy ./src ./tests --config-file pyproject.toml
   test:
