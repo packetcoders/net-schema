@@ -12,7 +12,7 @@ def asn_to_int(instance) -> int:
     if not isinstance(instance, (int, str)) or isinstance(instance, bool):
         raise ValidationError(asn_error)
 
-    if "." not in instance:
+    if isinstance(instance, str) and "." not in instance:
         try:
             return int(instance)
         except ValueError:

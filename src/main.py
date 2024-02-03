@@ -23,7 +23,7 @@ class SchemaValidator:
         self._validator.initialize(self._schema)
 
     def _load_schema(self):
-        self._schema, warning_msgs = load_yaml_or_json(self._schema)
+        self._schema, _ = load_yaml_or_json(self._schema)
 
     def _validate(self):
         for filename in self._document_path.iterdir():

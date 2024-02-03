@@ -1,5 +1,6 @@
 import json
 import sys
+from typing import List
 
 import yaml
 from rich import print as rprint  # noqa
@@ -8,16 +9,13 @@ current_file = None  # Global variable to hold the current file being processed
 
 
 class UniqueKeyLoader(yaml.SafeLoader):
-    warnings = []
+    warnings: List[dict] = []
 
     @classmethod
     def add_warning(cls, warning_msg, key, value, filename):
-        cls.warnings.append({
-            'warning': True,
-            'msg': warning_msg,
-            'key': key,
-            'filename': str(filename)
-        })
+        cls.warnings.append(
+            {"warning": True, "msg": warning_msg, "key": key, "filename": str(filename)}
+        )
 
     def construct_mapping(self, node, deep=False):
         mapping = set()
@@ -25,7 +23,9 @@ class UniqueKeyLoader(yaml.SafeLoader):
             key = self.construct_object(key_node, deep=deep)
             if key in mapping:
                 warning_msg = f"Duplicate keys '{key}' found in YAML file."
-                UniqueKeyLoader.add_warning(warning_msg, key, self.construct_object(value_node), current_file)
+                UniqueKeyLoader.add_warning(
+                    warning_msg, key, self.construct_object(value_node), current_file
+                )
             mapping.add(key)
         return super().construct_mapping(node, deep)
 
