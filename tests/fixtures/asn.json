@@ -2,282 +2,122 @@
     "asn_min": {
         "schema": {
             "type": "object",
-            "properties": {
-                "asn_value": {
-                    "type": "string",
-                    "asn": true
-                }
-            },
-            "required": ["asn_value"]
+            "properties": {"asn_value": {"type": "string", "asn": true}},
+            "required": ["asn_value"],
         },
-        "data": {
-            "valid": {
-                "asn_value": "0"
-            },
-            "invalid": {
-                "asn_value": "-1"
-            }
-        }
+        "data": {"valid": {"asn_value": "0"}, "invalid": {"asn_value": "-1"}},
     },
     "asn_max": {
         "schema": {
             "type": "object",
-            "properties": {
-                "asn_value": {
-                    "type": "string",
-                    "asn": true
-                }
-            },
-            "required": ["asn_value"]
+            "properties": {"asn_value": {"type": "string", "asn": true}},
+            "required": ["asn_value"],
         },
         "data": {
-            "valid": {
-                "asn_value": "4294967295"
-            },
-            "invalid": {
-                "asn_value": "4294967296"
-            }
-        }
+            "valid": {"asn_value": "4294967295"},
+            "invalid": {"asn_value": "4294967296"},
+        },
     },
     "asn_public_min": {
         "schema": {
             "type": "object",
-            "properties": {
-                "asn_value": {
-                    "type": "string",
-                    "asn_public": true
-                }
-            },
-            "required": ["asn_value"]
+            "properties": {"asn_value": {"type": "string", "asn_public": true}},
+            "required": ["asn_value"],
         },
-        "data": {
-            "valid": {
-                "asn_value": "23457"
-            },
-            "invalid": {
-                "asn_value": "23456"
-            }
-        }
+        "data": {"valid": {"asn_value": "23457"}, "invalid": {"asn_value": "23456"}},
     },
     "asn_public_max": {
         "schema": {
             "type": "object",
-            "properties": {
-                "asn_value": {
-                    "type": "string",
-                    "asn_public": true
-                }
-            },
-            "required": ["asn_value"]
+            "properties": {"asn_value": {"type": "string", "asn_public": true}},
+            "required": ["asn_value"],
         },
-        "data": {
-            "valid": {
-                "asn_value": "64495"
-            },
-            "invalid": {
-                "asn_value": "64496"
-            }
-        }
+        "data": {"valid": {"asn_value": "64495"}, "invalid": {"asn_value": "64496"}},
     },
     "asn_private_min": {
         "schema": {
             "type": "object",
-            "properties": {
-                "asn_value": {
-                    "type": "string",
-                    "asn_private": true
-                }
-            },
-            "required": ["asn_value"]
+            "properties": {"asn_value": {"type": "string", "asn_private": true}},
+            "required": ["asn_value"],
         },
-        "data": {
-            "valid": {
-                "asn_value": "64512"
-            },
-            "invalid": {
-                "asn_value": "64511"
-            }
-        }
+        "data": {"valid": {"asn_value": "64512"}, "invalid": {"asn_value": "64511"}},
     },
     "asn_private_max": {
         "schema": {
             "type": "object",
-            "properties": {
-                "asn_value": {
-                    "type": "string",
-                    "asn_private": true
-                }
-            },
-            "required": ["asn_value"]
+            "properties": {"asn_value": {"type": "string", "asn_private": true}},
+            "required": ["asn_value"],
+        },
+        "data": {"valid": {"asn_value": "65534"}, "invalid": {"asn_value": "65535"}},
+    },
+    "asn_reserved_min": {
+        "schema": {
+            "type": "object",
+            "properties": {"asn_value": {"type": "string", "asn_reserved": true}},
+            "required": ["asn_value"],
+        },
+        "data": {"valid": {"asn_value": "0"}, "invalid": {"asn_value": "-1"}},
+    },
+    "asn_reserved_max": {
+        "schema": {
+            "type": "object",
+            "properties": {"asn_value": {"type": "string", "asn_reserved": true}},
+            "required": ["asn_value"],
         },
         "data": {
-            "valid": {
-                "asn_value": "65534"
-            },
-            "invalid": {
-                "asn_value": "65535"
-            }
-        }
+            "valid": {"asn_value": "4294967295"},
+            "invalid": {"asn_value": "4294967296"},
+        },
     },
-        "asn_reserved_min": {
-            "schema": {
-                "type": "object",
-                "properties": {
-                    "asn_value": {
-                        "type": "string",
-                        "asn_reserved": true
-                    }
-                },
-                "required": ["asn_value"]
-            },
-            "data": {
-                "valid": {
-                    "asn_value": "0"
-                },
-                "invalid": {
-                    "asn_value": "-1"
-                }
-            }
+    "asn_documentation_min": {
+        "schema": {
+            "type": "object",
+            "properties": {"asn_value": {"type": "string", "asn_documentation": true}},
+            "required": ["asn_value"],
         },
-        "asn_reserved_max": {
-            "schema": {
-                "type": "object",
-                "properties": {
-                    "asn_value": {
-                        "type": "string",
-                        "asn_reserved": true
-                    }
-                },
-                "required": ["asn_value"]
-            },
-            "data": {
-                "valid": {
-                    "asn_value": "4294967295"
-                },
-                "invalid": {
-                    "asn_value": "4294967296"
-                }
-            }
+        "data": {"valid": {"asn_value": "64496"}, "invalid": {"asn_value": "64495"}},
+    },
+    "asn_documentation_max": {
+        "schema": {
+            "type": "object",
+            "properties": {"asn_value": {"type": "string", "asn_documentation": true}},
+            "required": ["asn_value"],
         },
-        "asn_documentation_min": {
-            "schema": {
-                "type": "object",
-                "properties": {
-                    "asn_value": {
-                        "type": "string",
-                        "asn_documentation": true
-                    }
-                },
-                "required": ["asn_value"]
-            },
-            "data": {
-                "valid": {
-                    "asn_value": "64496"
-                },
-                "invalid": {
-                    "asn_value": "64495"
-                }
-            }
+        "data": {"valid": {"asn_value": "65551"}, "invalid": {"asn_value": "65552"}},
+    },
+    "asn_2byte_min": {
+        "schema": {
+            "type": "object",
+            "properties": {"asn_value": {"type": "string", "asn_2byte": true}},
+            "required": ["asn_value"],
         },
-        "asn_documentation_max": {
-            "schema": {
-                "type": "object",
-                "properties": {
-                    "asn_value": {
-                        "type": "string",
-                        "asn_documentation": true
-                    }
-                },
-                "required": ["asn_value"]
-            },
-            "data": {
-                "valid": {
-                    "asn_value": "65551"
-                },
-                "invalid": {
-                    "asn_value": "65552"
-                }
-            }
+        "data": {"valid": {"asn_value": "0"}, "invalid": {"asn_value": "-1"}},
+    },
+    "asn_2byte_max": {
+        "schema": {
+            "type": "object",
+            "properties": {"asn_value": {"type": "string", "asn_2byte": true}},
+            "required": ["asn_value"],
         },
-        "asn_2byte_min": {
-            "schema": {
-                "type": "object",
-                "properties": {
-                    "asn_value": {
-                        "type": "string",
-                        "asn_2byte": true
-                    }
-                },
-                "required": ["asn_value"]
-            },
-            "data": {
-                "valid": {
-                    "asn_value": "0"
-                },
-                "invalid": {
-                    "asn_value": "-1"
-                }
-            }
+        "data": {"valid": {"asn_value": "65535"}, "invalid": {"asn_value": "65536"}},
+    },
+    "asn_4byte_min": {
+        "schema": {
+            "type": "object",
+            "properties": {"asn_value": {"type": "string", "asn_4byte": true}},
+            "required": ["asn_value"],
         },
-        "asn_2byte_max": {
-            "schema": {
-                "type": "object",
-                "properties": {
-                    "asn_value": {
-                        "type": "string",
-                        "asn_2byte": true
-                    }
-                },
-                "required": ["asn_value"]
-            },
-            "data": {
-                "valid": {
-                    "asn_value": "65535"
-                },
-                "invalid": {
-                    "asn_value": "65536"
-                }
-            }
+        "data": {"valid": {"asn_value": "0"}, "invalid": {"asn_value": "4294967296"}},
+    },
+    "asn_4byte_max": {
+        "schema": {
+            "type": "object",
+            "properties": {"asn_value": {"type": "string", "asn_4byte": true}},
+            "required": ["asn_value"],
         },
-        "asn_4byte_min": {
-            "schema": {
-                "type": "object",
-                "properties": {
-                    "asn_value": {
-                        "type": "string",
-                        "asn_4byte": true
-                    }
-                },
-                "required": ["asn_value"]
-            },
-            "data": {
-                "valid": {
-                    "asn_value": "0"
-                },
-                "invalid": {
-                    "asn_value": "4294967296"
-                }
-            }
+        "data": {
+            "valid": {"asn_value": "4294967295"},
+            "invalid": {"asn_value": "4294967296"},
         },
-        "asn_4byte_max": {
-            "schema": {
-                "type": "object",
-                "properties": {
-                    "asn_value": {
-                        "type": "string",
-                        "asn_4byte": true
-                    }
-                },
-                "required": ["asn_value"]
-            },
-            "data": {
-                "valid": {
-                    "asn_value": "4294967295"
-                },
-                "invalid": {
-                    "asn_value": "4294967296"
-                }
-            }
-        }
-    }
-
+    },
+}

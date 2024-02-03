@@ -1,5 +1,4 @@
 import pytest
-
 from plugins.json_schema.validator import (  # Replace 'your_module' with the actual name of your Python file containing JSONSchemaValidator
     JSONSchemaValidator,
 )

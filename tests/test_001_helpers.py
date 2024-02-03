@@ -1,7 +1,6 @@
 from pathlib import Path
 
 import pytest
-
 from helpers import load_yaml_or_json
 
 

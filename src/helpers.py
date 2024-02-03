@@ -2,7 +2,7 @@ import json
 import sys
 
 import yaml
-from rich import print as rprint  # noqa
+from rich import print as rprint
 
 # Load YAML or JSON
 

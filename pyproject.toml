@@ -86,29 +86,44 @@ autoflake = "^1.4"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.4.1"
+ruff = "^0.2.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
-[tool.bandit]
-exclude_dirs = ["venv", ".venv"]
+#[tool.bandit]
 
-[tool.black]
-exclude = "(venv, .venv)"
+#exclude_dirs = ["venv", ".venv"]
 
-[tool.isort]
-profile = "black"
-skip = "venv, .venv"
-balanced_wrapping = true
-atomic = true
+#[tool.black]
+#exclude = "(venv, .venv)"
 
-[tool.pydocstyle]
-inherit = false
-match = '((?!excluded_file).)*\.py'
-match_dir = '^(?!(venv|.venv)).*'
+# [tool.isort]
+# profile = "black"
+# skip = "venv, .venv"
+# balanced_wrapping = true
+# atomic = true
+
+# [tool.pydocstyle]
+# inherit = false
+# match = '((?!excluded_file).)*\.py'
+# match_dir = '^(?!(venv|.venv)).*'
 
 [tool.mypy]
 exclude = ['venv', '.venv']
 pretty = true
 ignore_missing_imports = true
+
+[tool.ruff]
+select = [
+    "I",  # "isort"
+    "E",  # "pycodestyle"
+    "B",  # "mypy"
+    "D",  # "pydocstyle"
+    "RUF100",  # remapped from "M" - "flake8-quotes"
+    "N",  # "flake8-string-format"
+    "U",  # "flake8-docstrings"
+    "S",  # "flake8-bandit"
+]
+include = ["src/*", "tests/*"]

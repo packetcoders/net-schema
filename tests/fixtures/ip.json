@@ -2,105 +2,89 @@
     "ip_valid": {
         "schema": {
             "type": "object",
-            "properties": {
-                "ip_value": { "type": "string", "ip": true }
-            },
-            "required": ["ip_value"]
+            "properties": {"ip_value": {"type": "string", "ip": true}},
+            "required": ["ip_value"],
         },
         "data": {
-            "valid": { "ip_value": "192.168.1.1" },
-            "invalid": { "ip_value": "not.an.ip" }
-        }
+            "valid": {"ip_value": "192.168.1.1"},
+            "invalid": {"ip_value": "not.an.ip"},
+        },
     },
     "ipv4_valid": {
         "schema": {
             "type": "object",
-            "properties": {
-                "ip_value": { "type": "string", "ip_ipv4": true }
-            },
-            "required": ["ip_value"]
+            "properties": {"ip_value": {"type": "string", "ip_ipv4": true}},
+            "required": ["ip_value"],
         },
         "data": {
-            "valid": { "ip_value": "192.168.1.1" },
-            "invalid": { "ip_value": "2001:db8::" }
-        }
+            "valid": {"ip_value": "192.168.1.1"},
+            "invalid": {"ip_value": "2001:db8::"},
+        },
     },
     "ipv6_valid": {
         "schema": {
             "type": "object",
-            "properties": {
-                "ip_value": { "type": "string", "ip_ipv6": true }
-            },
-            "required": ["ip_value"]
+            "properties": {"ip_value": {"type": "string", "ip_ipv6": true}},
+            "required": ["ip_value"],
         },
         "data": {
-            "valid": { "ip_value": "2001:db8::" },
-            "invalid": { "ip_value": "192.168.1.1" }
-        }
+            "valid": {"ip_value": "2001:db8::"},
+            "invalid": {"ip_value": "192.168.1.1"},
+        },
     },
     "ip_multicast_valid": {
         "schema": {
             "type": "object",
-            "properties": {
-                "ip_value": { "type": "string", "ip_multicast": true }
-            },
-            "required": ["ip_value"]
+            "properties": {"ip_value": {"type": "string", "ip_multicast": true}},
+            "required": ["ip_value"],
         },
         "data": {
-            "valid": { "ip_value": "224.0.0.1" },
-            "invalid": { "ip_value": "192.168.1.1" }
-        }
+            "valid": {"ip_value": "224.0.0.1"},
+            "invalid": {"ip_value": "192.168.1.1"},
+        },
     },
     "ip_private_valid": {
         "schema": {
             "type": "object",
-            "properties": {
-                "ip_value": { "type": "string", "ip_private": true }
-            },
-            "required": ["ip_value"]
+            "properties": {"ip_value": {"type": "string", "ip_private": true}},
+            "required": ["ip_value"],
         },
         "data": {
-            "valid": { "ip_value": "192.168.1.1" },
-            "invalid": { "ip_value": "8.8.8.8" }
-        }
+            "valid": {"ip_value": "192.168.1.1"},
+            "invalid": {"ip_value": "8.8.8.8"},
+        },
     },
     "ip_reserved_valid": {
         "schema": {
             "type": "object",
-            "properties": {
-                "ip_value": { "type": "string", "ip_reserved": true }
-            },
-            "required": ["ip_value"]
+            "properties": {"ip_value": {"type": "string", "ip_reserved": true}},
+            "required": ["ip_value"],
         },
         "data": {
-            "valid": { "ip_value": "240.0.0.1" },
-            "invalid": { "ip_value": "192.168.1.1" }
-        }
+            "valid": {"ip_value": "240.0.0.1"},
+            "invalid": {"ip_value": "192.168.1.1"},
+        },
     },
     "ip_linklocal_valid": {
         "schema": {
             "type": "object",
-            "properties": {
-                "ip_value": { "type": "string", "ip_linklocal": true }
-            },
-            "required": ["ip_value"]
+            "properties": {"ip_value": {"type": "string", "ip_linklocal": true}},
+            "required": ["ip_value"],
         },
         "data": {
-            "valid": { "ip_value": "169.254.0.1" },
-            "invalid": { "ip_value": "192.168.1.1" }
-        }
+            "valid": {"ip_value": "169.254.0.1"},
+            "invalid": {"ip_value": "192.168.1.1"},
+        },
     },
     "ip_network_valid": {
         "schema": {
             "type": "object",
-            "properties": {
-                "ip_value": { "type": "string", "ip_network": true }
-            },
-            "required": ["ip_value"]
+            "properties": {"ip_value": {"type": "string", "ip_network": true}},
+            "required": ["ip_value"],
         },
         "data": {
-            "valid": { "ip_value": "192.168.0.0/24" },
-            "invalid": { "ip_value": "192.168.1.1" }
-        }
-    }
+            "valid": {"ip_value": "192.168.0.0/24"},
+            "invalid": {"ip_value": "192.168.1.1"},
+        },
+    },
 }
