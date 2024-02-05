@@ -26,13 +26,13 @@ def yaml_file(tmp_path):
 def test_load_json(json_file):
     """Test loading a valid JSON file."""
     result = load_yaml_or_json(json_file)
-    assert result == {"name": "test", "type": "json"}
+    assert result == ({'name': 'test', 'type': 'json'}, [])
 
 
 def test_load_yaml(yaml_file):
     """Test loading a valid YAML file."""
     result = load_yaml_or_json(yaml_file)
-    assert result == {"name": "test", "type": "yaml"}
+    assert result == ({'name': 'test', 'type': 'yaml'}, [])
 
 
 def test_file_not_found():
