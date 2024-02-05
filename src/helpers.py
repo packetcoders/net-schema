@@ -1,6 +1,8 @@
 import json
 import sys
 from typing import List
+import Path
+from typing import Union
 
 import yaml
 from rich import print as rprint
@@ -31,22 +33,7 @@ class UniqueKeyLoader(yaml.SafeLoader):
 
 
 # Load YAML or JSON
-def load_yaml_or_json(filename):
-    """
-    Load a YAML or JSON file and return its contents.
-
-    Args:
-        filename (str): The path to the file.
-
-    Returns
-    -------
-        dict: The contents of the file as a dictionary.
-
-    Raises
-    ------
-        FileNotFoundError: If the file is not found.
-    """
-
+def load_yaml_or_json(filename: Path):
     global current_file
     current_file = filename
 

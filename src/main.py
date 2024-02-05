@@ -13,7 +13,7 @@ from rich.table import Table
 
 from src.helpers import load_yaml_or_json
 from src.plugins.json_schema.validator import JSONSchemaValidator
-from helpers import read_yaml
+from helpers import load_yaml_or_json
 
 
 
@@ -112,8 +112,7 @@ def main(document_path, schema):
     :param document_path: The path to the directory containing the YAML files to be validated
     :param schema: The path to the schema file
     """
-    print(schema)
-    schema = read_yaml(schema)
+    schema = load_yaml_or_json(schema)
 
     console = Console()
 
