@@ -38,14 +38,16 @@ jobs:
         run: poetry run black ./src ./tests
       - name: Format (chk) - isort
         run: poetry run isort ./src ./tests --check-only --profile black
-      #- name: Format (chk) - autoflake
-      #  run: poetry run autoflake -r . --expand-star-imports --remove-unused-variables --remove-all-unused-imports
-      #- name: Format (chk) - bandit
-      #  run: poetry run bandit -c pyproject.toml -r .
-      #- name: Lint - flake8
-      #  run: poetry run flake8 .
-      #- name: Lint - pydocstyle
-      #  run: poetry run pydocstyle .
+      - name: Format (chk) - autoflake
+        run: poetry run autoflake -r . --expand-star-imports --remove-unused-variables --remove-all-unused-imports
+      - name: Format (chk) - bandit
+        run: poetry run bandit -c pyproject.toml -r .
+      - name: Format (chk) - ruff
+        run: poetry run ruff format . --check
+      - name: Lint - flake8
+        run: poetry run flake8 .
+      - name: Lint - ruff
+        run: ruff check .
       - name: Lint - yamllint
         run: poetry run yamllint src/ -c .yamllint
       - name: Type check - mypy
