@@ -87,28 +87,21 @@ autoflake = "^1.4"
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.4.1"
 ruff = "^0.2.0"
+types-pyyaml = "^6.0.12.12"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
-#[tool.bandit]
+[tool.black]
+exclude = "(venv, .venv)"
+line-length = 88
 
-#exclude_dirs = ["venv", ".venv"]
-
-#[tool.black]
-#exclude = "(venv, .venv)"
-
-# [tool.isort]
-# profile = "black"
-# skip = "venv, .venv"
-# balanced_wrapping = true
-# atomic = true
-
-# [tool.pydocstyle]
-# inherit = false
-# match = '((?!excluded_file).)*\.py'
-# match_dir = '^(?!(venv|.venv)).*'
+[tool.isort]
+profile = "black"
+skip = "venv, .venv"
+balanced_wrapping = true
+atomic = true
 
 [tool.mypy]
 exclude = ['venv', '.venv']
@@ -125,5 +118,7 @@ select = [
     "N",  # "flake8-string-format"
     "U",  # "flake8-docstrings"
     "S",  # "flake8-bandit"
+    "F"  # "pyflakes"
 ]
-include = ["src/*", "tests/*"]
+line-length = 88
+ignore = ["S101", "D203", "D212", "E712"]

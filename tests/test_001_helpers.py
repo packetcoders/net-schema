@@ -19,19 +19,19 @@ def yaml_file(tmp_path):
 
 
 def test_load_json(json_file):
-    """Test loading a valid JSON file"""
+    """Test loading a valid JSON file."""
     result = load_yaml_or_json(json_file)
     assert result == {"name": "test", "type": "json"}
 
 
 def test_load_yaml(yaml_file):
-    """Test loading a valid YAML file"""
+    """Test loading a valid YAML file."""
     result = load_yaml_or_json(yaml_file)
     assert result == {"name": "test", "type": "yaml"}
 
 
 def test_file_not_found():
-    """Test the behavior when the file does not exist"""
+    """Test the behavior when the file does not exist."""
     with pytest.raises(SystemExit) as e:
         load_yaml_or_json(Path("nonexistent.json"))
     assert e.type == SystemExit
