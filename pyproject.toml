@@ -121,4 +121,4 @@ select = [
     "F"  # "pyflakes"
 ]
 line-length = 88
-ignore = ["S101", "D203", "D212", "E712"]
+ignore = ["S101", "D100", "D203", "D212", "E402", "E712"]

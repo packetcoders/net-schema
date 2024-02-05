@@ -8,6 +8,20 @@ from rich import print as rprint
 
 
 def load_yaml_or_json(filename):
+    """
+    Load a YAML or JSON file and return its contents.
+
+    Args:
+        filename (str): The path to the file.
+
+    Returns
+    -------
+        dict: The contents of the file as a dictionary.
+
+    Raises
+    ------
+        FileNotFoundError: If the file is not found.
+    """
     try:
         if filename.suffix in [".yaml", ".yml"]:
             with filename.open() as f:

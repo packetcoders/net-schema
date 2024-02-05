@@ -1,7 +1,8 @@
+"""Module contains tests for the JSONSchemaValidator class."""
+
 import pytest
-from plugins.json_schema.validator import (  # Replace 'your_module' with the actual name of your Python file containing JSONSchemaValidator
-    JSONSchemaValidator,
-)
+
+from plugins.json_schema.validator import JSONSchemaValidator
 
 schema = {
     "type": "object",
@@ -15,6 +16,7 @@ bad_data = {"asn": 65000}
 
 @pytest.fixture
 def validator():
+    """Return a JSONSchemaValidator instance."""
     """Return a JSONSchemaValidator instance."""
     validator = JSONSchemaValidator()
     validator.initialize(schema)

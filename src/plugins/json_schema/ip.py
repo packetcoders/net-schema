@@ -65,24 +65,6 @@ def ip_linklocal(validator, value, instance, schema) -> None:
         yield ValidationError(f"'{instance}' is not a valid IP address.")
 
 
-def ip_ipv4(validator, value, instance, schema) -> None:
-    """Check if the IP address is an IPv4 address."""
-    try:
-        if not isinstance(ipaddress.ip_address(instance), ipaddress.IPv4Address):
-            yield ValidationError(f"'{instance}' is not an IPv4 address.")
-    except ValueError:
-        yield ValidationError(f"'{instance}' is not a valid IP address.")
-
-
-def ip_ipv6(validator, value, instance, schema) -> None:
-    """Check if the IP address is an IPv6 address."""
-    try:
-        if not isinstance(ipaddress.ip_address(instance), ipaddress.IPv6Address):
-            yield ValidationError(f"'{instance}' is not an IPv6 address.")
-    except ValueError:
-        yield ValidationError(f"'{instance}' is not a valid IP address.")
-
-
 def ip_network(validator, value, instance, schema) -> None:
     """Check if the IP address is a network."""
     try:

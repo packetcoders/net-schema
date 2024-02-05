@@ -1,11 +1,15 @@
+"""Test the helper functions."""
+
 from pathlib import Path
 
 import pytest
+
 from helpers import load_yaml_or_json
 
 
 @pytest.fixture
 def json_file(tmp_path):
+    """Create a temporary JSON file."""
     file = tmp_path / "test.json"
     file.write_text('{"name": "test", "type": "json"}')
     return file
@@ -13,6 +17,7 @@ def json_file(tmp_path):
 
 @pytest.fixture
 def yaml_file(tmp_path):
+    """Create a temporary YAML file."""
     file = tmp_path / "test.yaml"
     file.write_text("name: test\ntype: yaml")
     return file

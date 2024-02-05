@@ -1,3 +1,5 @@
+"""Module contains fixtures and utilities for testing JSON schema validation."""
+
 import sys
 from pathlib import Path
 
@@ -61,6 +63,17 @@ VALIDATORS = {**ASN_VALIDATORS, **IP_VALIDATORS, **VLAN_VALIDATORS}
 
 @pytest.fixture(scope="session")
 def basic_validator():
+    """
+    Fixture that returns a basic JSON schema validator.
+
+    This validator uses the Draft7Validator from the jsonschema library
+    and includes additional custom validators from the ASN_VALIDATORS, IP_VALIDATORS, and VLAN_VALIDATORS dictionaries.
+
+    Returns
+    -------
+        function: A function that can be used to validate JSON schemas.
+    """
+
     def _basic_validator(schema):
         v = Draft7Validator(schema=schema, format_checker=FormatChecker())
         Draft7Validator.VALIDATORS.update(VALIDATORS)
