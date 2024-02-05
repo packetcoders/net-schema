@@ -107,7 +107,7 @@ class JSONSchemaValidator:
         self._errors = []
 
         if self._validator.is_valid(data):
-            self._errors.append({"error": False, "msg": None, "value": None})
+            self._errors.append({"error": False, "msg": None, "key": None})
         else:
             try:
                 for error in self._validator.iter_errors(data):
@@ -115,9 +115,11 @@ class JSONSchemaValidator:
                         {
                             "error": True,
                             "msg": error.message,
-                            "value": ", ".join([prop for prop in error.path])
-                            if error.path
-                            else None,
+                            "key": (
+                                ", ".join([prop for prop in error.path])
+                                if error.path
+                                else None
+                            ),
                         }
                     )
             except exceptions._WrappedReferencingError as e:
@@ -125,7 +127,7 @@ class JSONSchemaValidator:
                     {
                         "error": True,
                         "msg": f"Unresolved reference error: {str(e)}",
-                        "value": None,
+                        "key": None,
                     }
                 )
             except Exception as e:
@@ -133,7 +135,7 @@ class JSONSchemaValidator:
                     {
                         "error": True,
                         "msg": f"Unknown error: {str(e)}",
-                        "value": None,
+                        "key": None,
                     }
                 )
         return self._errors

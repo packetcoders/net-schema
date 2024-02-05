@@ -1,9 +1,10 @@
 ---
-asn:
+bad_asn:
   name: admin
   password: admin
 
 asn: "4294967296"
+asn: "4294967297"
 
 interfaces:
   - name: eth0
