@@ -73,15 +73,37 @@ VALIDATORS = {**ASN_VALIDATORS, **IP_VALIDATORS, **VLAN_VALIDATORS}
 
 
 class JSONSchemaValidator:
+    """
+    A class for validating JSON data against a JSON schema.
+
+    Attributes
+    ----------
+        _validator (Draft7Validator): The JSON schema validator.
+        _errors (list): A list to store validation errors.
+    """
+
     def initialize(self, schema):
+        """Initializes the JSON schema validator with the given JSON schema."""
         self._validator = Draft7Validator(schema, format_checker=FormatChecker())
         self._load_custom_validators()
         self._errors = []
 
     def _load_custom_validators(self):
+        """Loads custom validators into the JSON schema validator."""
         self._validator.VALIDATORS.update(VALIDATORS)
 
     def _validate(self, data):
+        """
+        Validates the given JSON data against the JSON schema.
+
+        Args:
+            data (dict): The JSON data to be validated.
+
+        Returns
+        -------
+            list: A list of validation errors. Each error is represented as a dictionary
+                  with keys 'error', 'msg', and 'value'.
+        """
         self._errors = []
 
         if self._validator.is_valid(data):
@@ -119,6 +141,17 @@ class JSONSchemaValidator:
         return self._errors
 
     def results(self, data):
+        """
+        Validates the given JSON data against the JSON schema and returns the validation results.
+
+        Args:
+            data (dict): The JSON data to be validated.
+
+        Returns
+        -------
+            list: A list of validation errors. Each error is represented as a dictionary
+                  with keys 'error', 'msg', and 'value'.
+        """
         return self._validate(data)
 
 

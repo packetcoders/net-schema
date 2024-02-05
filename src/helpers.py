@@ -3,7 +3,7 @@ import sys
 from typing import List
 
 import yaml
-from rich import print as rprint  # noqa
+from rich import print as rprint
 
 current_file = None  # Global variable to hold the current file being processed
 
@@ -32,6 +32,21 @@ class UniqueKeyLoader(yaml.SafeLoader):
 
 # Load YAML or JSON
 def load_yaml_or_json(filename):
+    """
+    Load a YAML or JSON file and return its contents.
+
+    Args:
+        filename (str): The path to the file.
+
+    Returns
+    -------
+        dict: The contents of the file as a dictionary.
+
+    Raises
+    ------
+        FileNotFoundError: If the file is not found.
+    """
+
     global current_file
     current_file = filename
 
