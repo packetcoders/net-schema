@@ -21,7 +21,10 @@ fmt:
 	poetry run isort .
 	poetry run black .
 	poetry run autoflake -r -i . --expand-star-imports --remove-unused-variables --remove-all-unused-imports
-	poetry run ruff format . 
+	poetry run ruff format .
 
 typecheck:
 	poetry run mypy .
+
+test:
+	poetry run pytest tests -v --tb=short
