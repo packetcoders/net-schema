@@ -8,8 +8,6 @@ help:
 lint:
 	ruff check .
 
-lint-fix:
-	ruff check . --fix
 
 fmt-check:
 	poetry run isort . --check-only
@@ -22,9 +20,10 @@ fmt:
 	poetry run black .
 	poetry run autoflake -r -i . --expand-star-imports --remove-unused-variables --remove-all-unused-imports
 	poetry run ruff format .
+	poetry run ruff check . --fix
 
 typecheck:
 	poetry run mypy .
 
 test:
-	poetry run pytest tests -v --tb=short
+	poetry run pytest tests -v --tb=short -s

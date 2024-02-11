@@ -10,9 +10,7 @@ def vlan(validator, value, instance, schema) -> None:
                 f"'{instance}' is not a valid VLAN ID. It must be between 1 and 4094."
             )
     except ValueError:
-        yield ValidationError(
-            f"'{instance}' is not a valid VLAN ID. It must be an integer."
-        )
+        yield ValidationError(f"'{instance}' is not a valid VLAN ID. It must be an integer.")
 
 
 def vlan_standard(validator, value, instance, schema) -> None:
@@ -25,9 +23,7 @@ def vlan_standard(validator, value, instance, schema) -> None:
                 f"'{instance}' is not a standard VLAN ID. It must be between 1 and 1001."
             )
     except ValueError:
-        yield ValidationError(
-            f"'{instance}' is not a valid VLAN ID. It must be an integer."
-        )
+        yield ValidationError(f"'{instance}' is not a valid VLAN ID. It must be an integer.")
 
 
 def vlan_extended(validator, value, instance, schema) -> None:
@@ -39,6 +35,4 @@ def vlan_extended(validator, value, instance, schema) -> None:
                 f"'{instance}' is not an extended VLAN ID. It must be between 1006 and 4094."
             )
     except ValueError:
-        yield ValidationError(
-            f"'{instance}' is not a valid VLAN ID. It must be an integer."
-        )
+        yield ValidationError(f"'{instance}' is not a valid VLAN ID. It must be an integer.")

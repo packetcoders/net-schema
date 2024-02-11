@@ -41,7 +41,6 @@ def asn(validator, value, instance, schema) -> None:
     """Returns True if the ASN is a valid ASN, False otherwise."""
     # Check if instance is a string given schema type excepts a string.
     if not isinstance(instance, str):
-        # Without this, you would get a jsonschema validation error of type string & type asn for the same key.
         pass
     else:
         try:
@@ -136,8 +135,6 @@ def asn_notation_int(validator, value, instance, schema) -> None:
     """Returns True if the ASN is a valid ASN in integer notation, False otherwise."""
     try:
         if instance == asn_to_int(instance):
-            yield ValidationError(
-                f"'{instance}' is not a valid ASN in integer notation."
-            )
+            yield ValidationError(f"'{instance}' is not a valid ASN in integer notation.")
     except ValidationError as e:
         yield e

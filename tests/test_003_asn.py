@@ -42,13 +42,15 @@ def test_asn_validators_valid(basic_validator, check, asn_fixture):
     Test the validity of ASN validators with valid data.
 
     Args:
+    ----
         basic_validator: The basic validator object.
         check: The check parameter for the test.
         asn_fixture: The ASN fixture data.
 
-    Returns
+    Returns:
     -------
         None
+
     """
     schema = asn_fixture[check]["schema"]
     data = asn_fixture[check]["data"]["valid"]
@@ -63,13 +65,15 @@ def test_asn_validators_invalid(basic_validator, check, asn_fixture):
     Test case to validate the invalid data against the ASN schema.
 
     Args:
+    ----
         basic_validator: The basic validator object.
         check: The check parameter for the test case.
         asn_fixture: The ASN fixture data.
 
-    Returns
+    Returns:
     -------
         None
+
     """
     schema = asn_fixture[check]["schema"]
     data = asn_fixture[check]["data"]["invalid"]

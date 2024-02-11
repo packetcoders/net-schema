@@ -22,6 +22,7 @@ def vlan_fixture():
     Returns
     -------
         dict: The loaded VLAN data.
+
     """
     with open(VLAN_FIXTURE) as file:
         return json.load(file)
@@ -33,13 +34,15 @@ def test_vlan_validators_valid(basic_validator, check, vlan_fixture):
     Test the validity of VLAN validators.
 
     Args:
+    ----
         basic_validator: The basic validator object.
         check: The check parameter for the test.
         vlan_fixture: The VLAN fixture data.
 
-    Returns
+    Returns:
     -------
         None
+
     """
     schema = vlan_fixture[check]["schema"]
     data = vlan_fixture[check]["data"]["valid"]
@@ -53,13 +56,15 @@ def test_vlan_validators_invalid(basic_validator, check, vlan_fixture):
     Test invalid VLAN data.
 
     Args:
+    ----
         basic_validator: The basic validator object.
         check: The check parameter for the test.
         vlan_fixture: The VLAN fixture data.
 
-    Returns
+    Returns:
     -------
         None
+
     """
     schema = vlan_fixture[check]["schema"]
     data = vlan_fixture[check]["data"]["invalid"]
