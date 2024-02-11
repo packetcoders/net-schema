@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "net_schema"
+name = "net-schema"
 version = "0.1.0"
 description = "Net Schema is a library that allows you to validate the schema of your YAML documents. For example your Ansible host vars or group vars."
 homepage = "https://github.com/packetcoders/net-schema"
@@ -14,7 +14,7 @@ classifiers = [
 ]
 
 [tool.poetry.scripts]
-net_schema = "src.main:run"
+net-schema = "src.main:main"
 
 [tool.poetry.dependencies]
 python = "^3.8"
@@ -95,7 +95,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.black]
 exclude = "(venv, .venv)"
-line-length = 88
+line-length = 95
 
 [tool.isort]
 profile = "black"
@@ -120,5 +120,5 @@ select = [
     "S",  # "flake8-bandit"
     "F"  # "pyflakes"
 ]
-line-length = 88
-ignore = ["S101", "D100", "D203", "D212", "E402", "E712"]
+line-length = 95
+ignore = ["B904","D401", "D406", "D100", "D203", "D212", "E402", "E712", "S101", "UP007"]

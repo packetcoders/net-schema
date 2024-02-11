@@ -1,103 +1,99 @@
+#! /usr/bin/env python
+
 import pathlib
 import sys
 from pathlib import Path
 
-from rich import print as rprint
-
 sys.path.append(str(pathlib.Path(__file__).parent.parent.absolute()))
 
-from src.helpers import load_yaml_or_json
+import click
+from .helpers import load_yaml_or_json
+from rich import box
+from rich.console import Console
+from rich.table import Table
+
 from src.plugins.json_schema.validator import JSONSchemaValidator
 
 
 class SchemaValidator:
-    """
-    A class for validating documents against a schema using a validator engine.
+    """A class to validate a directory of YAML files against a schema."""
 
-    Args:
-        document_path (str): The path to the directory containing the documents to validate.
-        schema (str): The path to the schema file.
-        validator_engine (ValidatorEngine): The validator engine to use for validation.
-
-    Attributes
-    ----------
-        _validator (ValidatorEngine): The validator engine instance.
-        _document_path (Path): The path to the document directory.
-        _schema (Path): The path to the schema file.
-        _errors (list): A list to store validation errors.
-
-    Methods
-    -------
-        initialize(): Initializes the validator by loading the schema.
-        _load_schema(): Loads the schema from the file.
-        _validate(): Validates each document in the document directory against the schema.
-        results: Returns the validation results.
-
-    """
-
-    def __init__(self, document_path, schema, validator_engine):
-        self._validator = validator_engine
+    def __init__(self, document_path, schema, validator):
+        """Initializes the SchemaValidator class."""
+        self._validator = validator
         self._document_path = Path(document_path)
-        self._schema = Path(schema)
+        self._schema = load_yaml_or_json(schema)
         self._errors = []
-        self._warnings = []
 
-    def initialize(self):
+    def initialize(self) -> None:
         """Initializes the validator by loading the schema."""
-        self._load_schema()
         self._validator.initialize(self._schema)
 
-    def _load_schema(self):
-        """Loads the schema from the file."""
-        self._schema, _ = load_yaml_or_json(self._schema)
-
-    def _validate(self):
-        """
-        Validates each document in the document directory against the schema.
-
-        Returns
-        -------
-            list: A list of validation errors.
-        """
+    def _validate(self) -> dict:
+        """Validates the YAML files in the directory."""
         for filename in self._document_path.iterdir():
             if filename.suffix in [".yaml", ".yml", ".json"]:
-                data, file_warnings = load_yaml_or_json(filename)
-                file_errors = self._validator.results(data)
-                for error in file_errors:
-                    error["filename"] = str(filename)  # Add filename key to each error
-                self._errors.extend(file_errors)
-                self._warnings.extend(file_warnings)
-        return {"errors": self._errors, "warnings": self._warnings}
+                filename = str(filename)
+                errors = self._validator.results(load_yaml_or_json(filename))
+                for e in errors:
+                    e.update({"filename": str(filename)})
+                    self._errors.append(e)
+        return {"errors": self._errors}
 
     @property
-    def results(self):
-        """
-        Returns the validation results.
-
-        Returns
-        -------
-            list: A list of validation errors.
-        """
+    def results(self) -> list:
+        """Returns the validation results."""
         return self._validate()
 
 
-def run():
-    """
-    Runs the schema validation process.
+@click.command()
+@click.option(
+    "--document_path",
+    "-p",
+    type=click.Path(),
+    required=True,
+    help="path",
+)
+@click.option(
+    "--schema",
+    "-s",
+    type=click.Path(),
+    required=True,
+    help="schema",
+    default=f"{Path(__file__).parent}/schema.yml",
+)
+def main(document_path: str, schema: str):
+    """Validate a directory of YAML files against a schema."""
+    console = Console()
 
-    This function initializes a SchemaValidator object, sets the document path,
-    schema, and validator engine, and then runs the validation process. Finally,
-    it prints the validation results.
+    table = Table(show_header=True, header_style="bold magenta", box=box.HORIZONTALS)
+    table.add_column("Result")
+    table.add_column("Msg")
+    table.add_column("key")
+    table.add_column("Filename")
 
-    """
     schema_validator = SchemaValidator(
-        document_path="examples/host_vars",
-        schema="examples/schema.yaml",
-        validator_engine=JSONSchemaValidator(),
+        document_path=document_path,
+        schema=schema,
+        validator=JSONSchemaValidator(),
     )
     schema_validator.initialize()
-    rprint(schema_validator.results)
+    errors = False
+
+    errors = sorted(schema_validator.results["errors"], key=lambda x: x["filename"])
+
+    for error in errors:
+        if error["error"]:
+            errors = True
+            table.add_row(":cross_mark:", error["msg"], error["key"], error["filename"])
+        else:
+            table.add_row(":white_heavy_check_mark:", "No errors", None, error["filename"])
+
+    console.print(table)
+
+    if errors:
+        sys.exit(1)
 
 
 if __name__ == "__main__":
-    run()
+    main()

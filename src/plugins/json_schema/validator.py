@@ -32,7 +32,6 @@ DEFAULT_ID = "http://packetcoders.io/schemas/main"
 
 
 from plugins.json_schema.ip import (
-    ip,
     ip_ipv4,
     ip_ipv6,
     ip_linklocal,
@@ -73,17 +72,10 @@ VALIDATORS = {**ASN_VALIDATORS, **IP_VALIDATORS, **VLAN_VALIDATORS}
 
 
 class JSONSchemaValidator:
-    """
-    A class for validating JSON data against a JSON schema.
+    """A JSON schema validator class that validates JSON data against a given JSON schema."""
 
-    Attributes
-    ----------
-        _validator (Draft7Validator): The JSON schema validator.
-        _errors (list): A list to store validation errors.
-    """
-
-    def initialize(self, schema):
-        """Initializes the JSON schema validator with the given JSON schema."""
+    def initialize(self, schema: dict):
+        """JSON schema validator with the given JSON schema."""
         self._validator = Draft7Validator(schema, format_checker=FormatChecker())
         self._load_custom_validators()
         self._errors = []
@@ -92,18 +84,7 @@ class JSONSchemaValidator:
         """Loads custom validators into the JSON schema validator."""
         self._validator.VALIDATORS.update(VALIDATORS)
 
-    def _validate(self, data):
-        """
-        Validates the given JSON data against the JSON schema.
-
-        Args:
-            data (dict): The JSON data to be validated.
-
-        Returns
-        -------
-            list: A list of validation errors. Each error is represented as a dictionary
-                  with keys 'error', 'msg', and 'value'.
-        """
+    def _validate(self, data: dict):
         self._errors = []
 
         if self._validator.is_valid(data):
@@ -140,18 +121,8 @@ class JSONSchemaValidator:
                 )
         return self._errors
 
-    def results(self, data):
-        """
-        Validates the given JSON data against the JSON schema and returns the validation results.
-
-        Args:
-            data (dict): The JSON data to be validated.
-
-        Returns
-        -------
-            list: A list of validation errors. Each error is represented as a dictionary
-                  with keys 'error', 'msg', and 'value'.
-        """
+    def results(self, data: dict) -> list:
+        """Returns the validation results."""
         return self._validate(data)
 
 

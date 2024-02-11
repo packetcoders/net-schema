@@ -36,13 +36,15 @@ def test_ip_validators_valid(basic_validator, check, ip_fixture):
     Test the validity of IP validators.
 
     Args:
+    ----
         basic_validator: The basic validator object.
         check: The check parameter for the test.
         ip_fixture: The IP fixture data.
 
-    Returns
+    Returns:
     -------
         None
+
     """
     schema = ip_fixture[check]["schema"]
     data = ip_fixture[check]["data"]["valid"]
@@ -57,13 +59,15 @@ def test_ip_validators_invalid(basic_validator, check, ip_fixture):
     Test case for validating invalid IP addresses using basic_validator.
 
     Args:
+    ----
         basic_validator: The basic_validator object.
         check: The check parameter from IP_FIXTURE_CHECKS.
         ip_fixture: The IP fixture containing the schema and data.
 
-    Returns
+    Returns:
     -------
         None
+
     """
     schema = ip_fixture[check]["schema"]
     data = ip_fixture[check]["data"]["invalid"]

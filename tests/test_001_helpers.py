@@ -1,43 +1,42 @@
-"""Test the helper functions."""
+import json
 
-from pathlib import Path
-
-import pytest
-
+import yaml
 from helpers import load_yaml_or_json
 
 
-@pytest.fixture
-def json_file(tmp_path):
-    """Create a temporary JSON file."""
-    file = tmp_path / "test.json"
-    file.write_text('{"name": "test", "type": "json"}')
-    return file
+def test_load_yaml_file():
+    """Test loading a YAML file."""
+    filename = "test.yaml"
+    expected_data = {"key": "value"}
+
+    with open(filename, "w") as f:
+        yaml.dump(expected_data, f)
+
+    result = load_yaml_or_json(filename)
+
+    assert result == expected_data
 
 
-@pytest.fixture
-def yaml_file(tmp_path):
-    """Create a temporary YAML file."""
-    file = tmp_path / "test.yaml"
-    file.write_text("name: test\ntype: yaml")
-    return file
+def test_load_json_file():
+    """Test loading a JSON file."""
+    filename = "test.json"
+    expected_data = {"key": "value"}
+
+    with open(filename, "w") as f:
+        json.dump(expected_data, f)
+
+    result = load_yaml_or_json(filename)
+
+    assert result == expected_data
 
 
-def test_load_json(json_file):
-    """Test loading a valid JSON file."""
-    result = load_yaml_or_json(json_file)
-    assert result == {"name": "test", "type": "json"}
+def test_invalid_input():
+    """Test passing an invalid input."""
+    invalid_input = 123
 
-
-def test_load_yaml(yaml_file):
-    """Test loading a valid YAML file."""
-    result = load_yaml_or_json(yaml_file)
-    assert result == {"name": "test", "type": "yaml"}
-
-
-def test_file_not_found():
-    """Test the behavior when the file does not exist."""
-    with pytest.raises(SystemExit) as e:
-        load_yaml_or_json(Path("nonexistent.json"))
-    assert e.type == SystemExit
-    assert e.value.code == 1
+    try:
+        load_yaml_or_json(invalid_input)
+    except ValueError as e:
+        assert str(e) == "Input should be a string."
+    else:
+        raise AssertionError()
