@@ -7,7 +7,7 @@ from pathlib import Path
 sys.path.append(str(pathlib.Path(__file__).parent.parent.absolute()))
 
 import click
-from helpers import load_yaml_or_json
+from .helpers import load_yaml_or_json
 from rich import box
 from rich.console import Console
 from rich.table import Table
@@ -63,7 +63,7 @@ class SchemaValidator:
     default=f"{Path(__file__).parent}/schema.yml",
 )
 def main(document_path: str, schema: str):
-    """Main function."""
+    """Validate a directory of YAML files against a schema."""
     console = Console()
 
     table = Table(show_header=True, header_style="bold magenta", box=box.HORIZONTALS)
