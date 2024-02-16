@@ -6,8 +6,7 @@ Net Schema is a library that validates JSON and YAML documents against a defined
 
 ## Installation
 
-To install the Net Schema library, you can use the following command:
-
+To install the Net Schema library, perform the following:
 **Pip**
 ```bash
 pip install net-schema
