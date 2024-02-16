@@ -109,16 +109,16 @@ pretty = true
 ignore_missing_imports = true
 
 [tool.ruff]
-select = [
+lint.select = [
     "I",  # "isort"
     "E",  # "pycodestyle"
     "B",  # "mypy"
     "D",  # "pydocstyle"
     "RUF100",  # remapped from "M" - "flake8-quotes"
     "N",  # "flake8-string-format"
-    "U",  # "flake8-docstrings"
+    "UP",  # "flake8-docstrings"
     "S",  # "flake8-bandit"
     "F"  # "pyflakes"
 ]
 line-length = 95
-ignore = ["B904","D401", "D406", "D100", "D203", "D212", "E402", "E712", "S101", "UP007"]
+lint.ignore = ["B904","D401", "D406", "D100", "D203", "D212", "E402", "E712", "S101", "UP007"]

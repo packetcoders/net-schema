@@ -10,13 +10,11 @@ lint:
 
 
 fmt-check:
-	poetry run isort . --check-only
 	poetry run black . --check
 	poetry run autoflake -r . --expand-star-imports --remove-unused-variables --remove-all-unused-imports
 	poetry run ruff format . --check
 
 fmt:
-	poetry run isort .
 	poetry run black .
 	poetry run autoflake -r -i . --expand-star-imports --remove-unused-variables --remove-all-unused-imports
 	poetry run ruff format .
