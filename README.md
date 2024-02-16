@@ -2,8 +2,7 @@
 
 ## About this Project
 
-Net Schema is a library that allows you to schema validate your JSON and YAML documents, based upon a schema.
-The current schema supported is JSON Schema.
+Net Schema is a library that validates JSON and YAML documents against a defined schema, utilizing JSON Schema. This ensures that data adheres to specified formats and rules, improving data integrity and consistency.
 
 ## Installation
 
@@ -35,8 +34,8 @@ Options:
   --help                    Show this message and exit.
 ```
 
-> Note:
-> Net Schema also provides an additional option to check for the presense of duplicate keys within your YAML or JSON data.
+> [!TIP]
+> Net Schema also provides an additional option to check for the presense of duplicate keys within your YAML or JSON data via the `--check-dup-keys` option.
 
 ## Custom Validators
 
