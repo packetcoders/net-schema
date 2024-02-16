@@ -38,6 +38,44 @@ Options:
 > Note:
 > Net Schema also provides an additional option to check for the presense of duplicate keys within your YAML or JSON data.
 
+## Custom Validators
+
+### ASN Validators
+
+| Validator Name         | Checks                                                      |
+|------------------------|-------------------------------------------------------------|
+| `asn`                  | Validates whether the ASN is valid in general.              |
+| `asn_public`           | Checks if the ASN is a public/global ASN.                   |
+| `asn_private`          | Determines if the ASN is a private ASN.                     |
+| `asn_reserved`         | Identifies if the ASN is reserved.                          |
+| `asn_documentation`    | Validates if the ASN is meant for documentation.            |
+| `asn_2byte`            | Checks if the ASN falls within the 2-byte ASN range.        |
+| `asn_4byte`            | Checks if the ASN falls within the 4-byte ASN range.        |
+| `asn_notation_dot`     | Validates ASN format in dot notation.                       |
+| `asn_notation_int`     | Validates ASN format in integer notation.
+
+### IP Validators
+
+| Validator Name   | Checks                                                         |
+|------------------|----------------------------------------------------------------|
+| `ip`             | Validates if the instance is a valid IP address.               |
+| `ip_ipv4`        | Checks if the instance is a valid IPv4 address.                |
+| `ip_ipv6`        | Checks if the instance is a valid IPv6 address.                |
+| `ip_multicast`   | Determines if the instance is a multicast IP address.          |
+| `ip_private`     | Validates if the instance is a private IP address.             |
+| `ip_reserved`    | Identifies if the instance is a reserved IP address.           |
+| `ip_linklocal`   | Checks if the instance is a link-local IP address.             |
+| `ip_network`     | Validates if the instance represents a valid IP network.       |
+
+### VLAN Validators
+
+| Validator Name    | Checks                                                                       |
+|-------------------|------------------------------------------------------------------------------|
+| `vlan`            | Validates if the instance is a valid VLAN ID (between 1 and 4094).           |
+| `vlan_standard`   | Checks if the instance is a standard VLAN ID (between 1 and 1001).           |
+| `vlan_extended`   | Determines if the instance is an extended VLAN ID (between 1006 and 4094).   |
+
+
 ## Example
 
 ```bash
