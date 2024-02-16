@@ -3,7 +3,7 @@
 ## About this Project
 
 Net Schema is a library that allows you to schema validate your JSON and YAML documents, based upon a schema.
-The current schema support is JSON Schema.
+The current schema supported is JSON Schema.
 
 ## Installation
 
