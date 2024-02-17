@@ -2,23 +2,28 @@
 
 ## About this Project
 
-Net Schema is a library that validates JSON and YAML documents against a defined schema, utilizing JSON Schema. This ensures that data adheres to specified formats and rules, improving data integrity and consistency.
+Net Schema is a library that validates JSON and YAML documents against a defined schema, utilizing JSON Schema. This ensures that data adheres to specified formats and rules.
+
+Additionally, this project is designed for schema validation of network-specific data, providing a range of network-related custom validators.
 
 ## Installation
 
 To install the Net Schema library, perform the following:
+
 **Pip**
+
 ```bash
 pip install net-schema
 ```
 
 **Poetry**
+
 ```bash
 poetry add net-schema
 ```
 
 ## Usage
-Net Schema provides a CLI. You pass in the path to your documents, along with your schema path. From which Net Schema then validates your data.
+Net Schema provides a CLI. You pass in the path to your documents, along with your schema path. Then Net Schema validates your data against the schema.
 
 ```bash
 net-schema --help
@@ -33,10 +38,25 @@ Options:
   --help                    Show this message and exit.
 ```
 
-> [!TIP]
-> Net Schema also provides an additional option to check for the presense of duplicate keys within your YAML or JSON data via the `--check-dup-keys` option.
+> [!NOTE]
+> Net Schema also provides an additional option to check for the presence of duplicate keys within your YAML or JSON data via the `--check-dup-keys` option.
 
 ## Custom Validators
+
+Net Schema provides various custom validators that can be used within your schema.
+
+### Usage
+
+To utilize custom validators within your schema, provide the name of the validator as a **key**, and then provide `True` as its value.
+
+Below provides an example of using the `ip` custom validator to ensure the `dns_server` value is of an IP address format.
+```
+---
+type: object
+properties:
+  dns_server:
+    ip: True
+```
 
 ### ASN Validators
 
@@ -72,6 +92,8 @@ Options:
 | `vlan`            | Validates if the instance is a valid VLAN ID (between 1 and 4094).           |
 | `vlan_standard`   | Checks if the instance is a standard VLAN ID (between 1 and 1001).           |
 | `vlan_extended`   | Determines if the instance is an extended VLAN ID (between 1006 and 4094).   |
+
+
 
 
 ## Example
