@@ -60,7 +60,6 @@ To utilize custom validators within your schema, provide the name of the validat
 Below is an example of using the `vlan` custom validator to ensure the `vlans` array consist of vlan values (i.e. integers between 1 and 4094).
 
 ```
----
 type: object
 properties:
   vlans:
@@ -111,7 +110,6 @@ properties:
 
 **document**
 ```yaml
----
 interfaces:
   - name: eth0
     ip: 10.1.1.1
