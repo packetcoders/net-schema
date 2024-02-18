@@ -3,8 +3,8 @@
   <p></p>
 </div>
 
-> [!NOTE]
-> Net Schema is currently in beta.
+> [!IMPORTANT]
+> Please note that Net Schema is currently in beta.
 
 # Net Schema
 
