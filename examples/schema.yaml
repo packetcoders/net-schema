@@ -1,9 +1,14 @@
----
 type: object
 properties:
-  asn:
-    type: string
-    asn: True
-  bad_asn:
-    type: string
-    asn: True
+  interfaces:
+    type: array
+    items:
+      type: object
+      properties:
+        name:
+          type: string
+          pattern: '^eth[0-9]+$'
+        ip:
+          ip_ipv4: true
+        netmask:
+          ip_network: true

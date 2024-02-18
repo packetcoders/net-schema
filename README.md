@@ -1,3 +1,10 @@
+<div align="center">
+  <img src="./logo.png">
+  <p></p>
+</div>
+
+
+
 # Net Schema
 
 ## About this Project
@@ -49,13 +56,16 @@ Net Schema provides various custom validators that can be used within your schem
 
 To utilize custom validators within your schema, provide the name of the validator as a **key**, and then provide `True` as its value.
 
-Below provides an example of using the `ip` custom validator to ensure the `dns_server` value is of an IP address format.
+Below is an example of using the `vlan` custom validator to ensure the `vlans` array consist of vlan values (i.e integers between 1 and 4094).
+
 ```
 ---
 type: object
 properties:
-  dns_server:
-    ip: True
+  vlans:
+    type: array
+    items:
+      vlan: True
 ```
 
 ### ASN Validators
@@ -98,22 +108,39 @@ properties:
 
 ## Example
 
+**document**
+```yaml
+---
+interfaces:
+  - name: eth0
+    ip: 10.1.1.1
+    netmask: 255.255.255.0
+  - name: eth1
+    ip: 10.1.2.1
+    netmask: 255.255.255.0
+  - name: eth2
+    ip: 10.1.3.1
+    netmask: 255.255.255.0
+  - name: eth3
+    ip: 10.1.4.1000
+    netmask: 255.255.255.0
+  - name: eth4
+    ip: 10.1.5.1
+    netmask: 255.255.255.0
+```
+
+**schema**
+```yaml
+```
+
 ```bash
 ❯ net-schema --document_path examples/host_vars/ --schema examples/schema.yaml --check-dup-keys
- ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-  Result   Filename                         Key       Msg
- ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-  ❌       examples/host_vars/rtr001.yml    asn       Duplicate key found: asn
-  ❌       examples/host_vars/rtr001.yml    asn       '4294967297' is not a valid ASN.
-  ❌       examples/host_vars/rtr001.yml    bad_asn   {'name': 'admin', 'password': 'admin'} is not of type 'string'
-  ✅       examples/host_vars/rtr002.yml    --        --
-  ✅       examples/host_vars/rtr003.yml    --        --
-  ✅       examples/host_vars/rtr004.yml    --        --
-  ❌       examples/host_vars/rtr005.json   asn       Duplicate key found: asn
-  ❌       examples/host_vars/rtr005.json   asn       '4294967298' is not a valid ASN.
-  ❌       examples/host_vars/rtr005.json   bad_asn   {'name': 'admin', 'password': 'admin'} is not of type 'string'
-  ✅       examples/host_vars/rtr005.yml    --        --
- ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+ ───────────────────────────────────────────────────────────────────────────────────────────────────
+  Result   Filename                         Location                  Msg
+ ───────────────────────────────────────────────────────────────────────────────────────────────────
+  ❌       examples/host_vars/rtr001.yml    ['interfaces', 3, 'ip']   '10.1.4.1000' is not a 'ipv4'
+  ✅       examples/host_vars/rtr002.yml    --                        --
+  ✅       examples/host_vars/rtr003.yml    --                        --
 ```
 
 ## License

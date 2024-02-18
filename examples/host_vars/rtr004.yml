@@ -1,7 +1,7 @@
 ---
 interfaces:
   - name: eth0
-    ip: 10.4.1.1
+    ip: 10.4.1.1999
     netmask: 255.255.255.0
   - name: eth1
     ip: 10.4.2.1

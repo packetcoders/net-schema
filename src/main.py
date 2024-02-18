@@ -100,7 +100,7 @@ def main(document_path: str, schema: str, check_dup_keys: bool):
     table = Table(show_header=True, header_style="bold magenta", box=box.HORIZONTALS)
     table.add_column("Result")
     table.add_column("Filename")
-    table.add_column("Key")
+    table.add_column("Location")
     table.add_column("Msg")
 
     schema_validator = SchemaValidator(

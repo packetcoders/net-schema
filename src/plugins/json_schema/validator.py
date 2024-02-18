@@ -96,13 +96,8 @@ class JSONSchemaValidator:
                         {
                             "error": True,
                             "msg": error.message,
-                            "key": (
-                                ", ".join([prop for prop in error.path])
-                                if error.path
-                                else None
-                            ),
-                        }
-                    )
+                            "key": str(list(error.path) if error.path else None)
+                        })
             except exceptions._WrappedReferencingError as e:
                 self._errors.append(
                     {
