@@ -13,5 +13,5 @@ interfaces:
     ip: 10.1.4.100
     netmask: 255.255.255.0
   - name: eth4
-    ip: 10.1.5.100
+    ip: 10.1.5.1000
     netmask: 255.255.255.0

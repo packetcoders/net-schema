@@ -19,6 +19,7 @@ IP_FIXTURE_CHECKS = [
     "ip_private_valid",
     "ip_reserved_valid",
     "ip_linklocal_valid",
+    "ip_network_valid",
 ]
 
 

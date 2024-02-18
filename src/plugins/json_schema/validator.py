@@ -38,6 +38,7 @@ from plugins.json_schema.ip import (
     ip_multicast,
     ip_private,
     ip_reserved,
+    ip_network,
 )
 
 ASN_VALIDATORS = {
@@ -60,6 +61,7 @@ IP_VALIDATORS = {
     "ip_private": ip_private,
     "ip_reserved": ip_reserved,
     "ip_linklocal": ip_linklocal,
+    "ip_network": ip_network,
 }
 
 VLAN_VALIDATORS = {

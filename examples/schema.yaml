@@ -11,4 +11,5 @@ properties:
         ip:
           ip_ipv4: true
         netmask:
-          ip_network: true
+          type: string
+          pattern: '^255\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$'

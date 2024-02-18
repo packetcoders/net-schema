@@ -99,8 +99,8 @@
             "required": ["ip_value"]
         },
         "data": {
-            "valid": { "ip_value": "192.168.0.0/24" },
-            "invalid": { "ip_value": "192.168.1.1" }
+            "valid": { "ip_value": "192.168.0.0" },
+            "invalid": { "ip_value": "192.168.0.000" }
         }
     }
 }

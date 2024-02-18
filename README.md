@@ -3,7 +3,8 @@
   <p></p>
 </div>
 
-
+> [!NOTE]
+> Net Schema is currently in beta.
 
 # Net Schema
 
@@ -56,7 +57,7 @@ Net Schema provides various custom validators that can be used within your schem
 
 To utilize custom validators within your schema, provide the name of the validator as a **key**, and then provide `True` as its value.
 
-Below is an example of using the `vlan` custom validator to ensure the `vlans` array consist of vlan values (i.e integers between 1 and 4094).
+Below is an example of using the `vlan` custom validator to ensure the `vlans` array consist of vlan values (i.e. integers between 1 and 4094).
 
 ```
 ---
@@ -131,6 +132,21 @@ interfaces:
 
 **schema**
 ```yaml
+type: object
+properties:
+  interfaces:
+    type: array
+    items:
+      type: object
+      properties:
+        name:
+          type: string
+          pattern: '^eth[0-9]+$'
+        ip:
+          ip_ipv4: true
+        netmask:
+          type: string
+          pattern: '^255\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$'
 ```
 
 ```bash
