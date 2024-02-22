@@ -156,6 +156,3 @@ properties:
   ✅       examples/host_vars/rtr002.yml    --                        --
   ✅       examples/host_vars/rtr003.yml    --                        --
 ```
-
-## License
-TBC
