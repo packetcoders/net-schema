@@ -9,7 +9,6 @@ on:
   pull_request:
     branches: ["development"]
     paths:
-      - "**/*.py"
       - "!**/README.md"
   workflow_dispatch:
 
