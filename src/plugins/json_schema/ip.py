@@ -1,9 +1,10 @@
 import ipaddress
+from typing import Generator
 
 from jsonschema.exceptions import ValidationError
 
 
-def ip(validator, value, instance, schema) -> None:
+def ip(validator, value, instance, schema) -> Generator:
     """Check if the IP address is an IP address."""
     try:
         ipaddress.ip_address(instance)
@@ -11,7 +12,7 @@ def ip(validator, value, instance, schema) -> None:
         yield ValidationError(f"'{instance}' is not a valid IP address.")
 
 
-def ip_ipv4(validator, value, instance, schema) -> None:
+def ip_ipv4(validator, value, instance, schema) -> Generator:
     """Check if the IP address is an IPv4 address."""
     try:
         if not isinstance(ipaddress.ip_address(instance), ipaddress.IPv4Address):
@@ -20,7 +21,7 @@ def ip_ipv4(validator, value, instance, schema) -> None:
         yield ValidationError(f"'{instance}' is not a valid IP address.")
 
 
-def ip_ipv6(validator, value, instance, schema) -> None:
+def ip_ipv6(validator, value, instance, schema) -> Generator:
     """Check if the IP address is an IPv6 address."""
     try:
         if not isinstance(ipaddress.ip_address(instance), ipaddress.IPv6Address):
@@ -29,7 +30,7 @@ def ip_ipv6(validator, value, instance, schema) -> None:
         yield ValidationError(f"'{instance}' is not a valid IP address.")
 
 
-def ip_multicast(validator, value, instance, schema) -> None:
+def ip_multicast(validator, value, instance, schema) -> Generator:
     """Check if the IP address is a multicast address."""
     try:
         if not ipaddress.ip_address(instance).is_multicast:
@@ -38,7 +39,7 @@ def ip_multicast(validator, value, instance, schema) -> None:
         yield ValidationError(f"'{instance}' is not a valid IP address.")
 
 
-def ip_private(validator, value, instance, schema) -> None:
+def ip_private(validator, value, instance, schema) -> Generator:
     """Check if the IP address is a private address."""
     try:
         if not ipaddress.ip_address(instance).is_private:
@@ -47,7 +48,7 @@ def ip_private(validator, value, instance, schema) -> None:
         yield ValidationError(f"'{instance}' is not a valid IP address.")
 
 
-def ip_reserved(validator, value, instance, schema) -> None:
+def ip_reserved(validator, value, instance, schema) -> Generator:
     """Check if the IP address is a reserved address."""
     try:
         if not ipaddress.ip_address(instance).is_reserved:
@@ -56,7 +57,7 @@ def ip_reserved(validator, value, instance, schema) -> None:
         yield ValidationError(f"'{instance}' is not a valid IP address.")
 
 
-def ip_linklocal(validator, value, instance, schema) -> None:
+def ip_linklocal(validator, value, instance, schema) -> Generator:
     """Check if the IP address is a link-local address."""
     try:
         if not ipaddress.ip_address(instance).is_link_local:
@@ -65,7 +66,7 @@ def ip_linklocal(validator, value, instance, schema) -> None:
         yield ValidationError(f"'{instance}' is not a valid IP address.")
 
 
-def ip_network(validator, value, instance, schema) -> None:
+def ip_network(validator, value, instance, schema) -> Generator:
     """Check if the IP address is a network."""
     try:
         ipaddress.ip_network(instance, strict=False)

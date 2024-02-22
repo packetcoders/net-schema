@@ -1,7 +1,9 @@
+from typing import Generator
+
 from jsonschema.exceptions import ValidationError
 
 
-def vlan(validator, value, instance, schema) -> None:
+def vlan(validator, value, instance, schema) -> Generator:
     """Check if the value is a valid VLAN ID."""
     try:
         vlan_id = int(instance)
@@ -13,7 +15,7 @@ def vlan(validator, value, instance, schema) -> None:
         yield ValidationError(f"'{instance}' is not a valid VLAN ID. It must be an integer.")
 
 
-def vlan_standard(validator, value, instance, schema) -> None:
+def vlan_standard(validator, value, instance, schema) -> Generator:
     """Check if the value is a standard VLAN ID (1-1001)."""
     try:
         vlan_id = int(instance)
@@ -26,7 +28,7 @@ def vlan_standard(validator, value, instance, schema) -> None:
         yield ValidationError(f"'{instance}' is not a valid VLAN ID. It must be an integer.")
 
 
-def vlan_extended(validator, value, instance, schema) -> None:
+def vlan_extended(validator, value, instance, schema) -> Generator:
     """Check if the value is an extended VLAN ID (1006-4094)."""
     try:
         vlan_id = int(instance)

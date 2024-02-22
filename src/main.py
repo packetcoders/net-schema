@@ -32,8 +32,8 @@ class SchemaValidator:
         self._validator = validator
         self._document_path = Path(document_path)
         self._schema = load_yaml_or_json(schema)
-        self._errors = []
         self._check_dup_keys = check_dup_keys
+        self._errors: list = []
 
     def initialize(self) -> None:
         """Initialize the validator and schema."""
@@ -85,7 +85,7 @@ class SchemaValidator:
     type=click.Path(),
     required=True,
     help="Path to the schema file",
-    default=f"{Path(__file__).parent}/schema.yml",
+    default=f"{Path(__file__).parent}/schema.yaml",
 )
 @click.option(
     "--check-dup-keys",

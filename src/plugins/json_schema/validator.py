@@ -36,9 +36,9 @@ from plugins.json_schema.ip import (
     ip_ipv6,
     ip_linklocal,
     ip_multicast,
+    ip_network,
     ip_private,
     ip_reserved,
-    ip_network,
 )
 
 ASN_VALIDATORS = {
@@ -76,17 +76,17 @@ VALIDATORS = {**ASN_VALIDATORS, **IP_VALIDATORS, **VLAN_VALIDATORS}
 class JSONSchemaValidator:
     """A JSON schema validator class that validates JSON data against a given JSON schema."""
 
-    def initialize(self, schema: dict):
+    def initialize(self, schema: dict) -> None:
         """JSON schema validator with the given JSON schema."""
         self._validator = Draft7Validator(schema, format_checker=FormatChecker())
         self._load_custom_validators()
         self._errors = []
 
-    def _load_custom_validators(self):
+    def _load_custom_validators(self) -> None:
         """Loads custom validators into the JSON schema validator."""
         self._validator.VALIDATORS.update(VALIDATORS)
 
-    def _validate(self, data: dict):
+    def _validate(self, data: dict) -> list:
         self._errors = []
 
         if self._validator.is_valid(data):
@@ -98,8 +98,9 @@ class JSONSchemaValidator:
                         {
                             "error": True,
                             "msg": error.message,
-                            "key": str(list(error.path) if error.path else None)
-                        })
+                            "key": str(list(error.path) if error.path else None),
+                        }
+                    )
             except exceptions._WrappedReferencingError as e:
                 self._errors.append(
                     {

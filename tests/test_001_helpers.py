@@ -4,10 +4,10 @@ import pytest
 import yaml
 from helpers import (
     DuplicateKeyError,
+    SafeCustomYamlLoader,
     check_for_duplicate_keys,
     json_object_pairs_hook,
     load_yaml_or_json,
-    SafeCustomYamlLoader,
 )
 
 
