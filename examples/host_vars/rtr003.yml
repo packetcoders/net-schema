@@ -1,0 +1,39 @@
+---
+hostname: rtr003
+interfaces:
+  - name: eth0
+    ip: 10.3.1.3
+    netmask: 255.255.255.0
+  - name: eth1
+    ip: 10.3.2.3
+    netmask: 255.255.255.0
+  - name: eth2
+    ip: 10.3.3.3
+    netmask: 255.255.255.0
+  - name: eth3
+    ip: 10.3.4.3
+    netmask: 255.255.255.0
+  - name: eth4
+    ip: 10.3.5.3
+    netmask: 255.255.255.0
+
+syslog:
+  - 10.3.100.1
+  - 10.3.100.2
+
+dns_servers: 10.3.200.3
+
+ospf:
+  area: 0
+  networks:
+    - 10.3.1.0/24
+    - 10.3.2.0/24
+    - 10.3.3.0/24
+    - 10.3.4.0/24
+    - 10.3.5.0/24
+
+bgp:
+  local_as: 65003
+  neighbors:
+    - ip: 10.2.250.2
+      remote_as: 65004
