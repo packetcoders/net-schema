@@ -14,7 +14,7 @@ on:
 
 jobs:
   lint:
-    name: "python-code-quality"
+    name: "lint"
     strategy:
       matrix:
         python-version: [3.8.x]
