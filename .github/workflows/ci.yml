@@ -41,7 +41,7 @@ jobs:
 
   test:
     name: "test"
-    needs: "code-quality"
+    needs: "lint"
     strategy:
       matrix:
         python-version: [3.8.x]
