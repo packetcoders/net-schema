@@ -119,7 +119,7 @@ lint.select = [
     "N",       # "flake8-string-format"
     "UP",      # "flake8-docstrings"
     "T201",    # "flake8-print"
-    "S"       # "flake8-bandit"
+    "S"        # "flake8-bandit"
 ]
 line-length = 95
 lint.ignore = ["B904","D401", "D406", "D100", "D203", "D212", "E402", "E712", "S101", "UP007"]
