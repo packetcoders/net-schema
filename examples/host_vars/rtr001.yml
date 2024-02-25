@@ -1,3 +1,5 @@
+---
+hostname: rtr001
 interfaces:
   - name: eth0
     ip: 10.1.1.1
@@ -9,8 +11,29 @@ interfaces:
     ip: 10.1.3.1
     netmask: 255.255.255.0
   - name: eth3
-    ip: 10.1.4.100
+    ip: 10.1.4.1
     netmask: 255.255.255.0
   - name: eth4
-    ip: 10.1.5.1000
+    ip: 10.1.5.1
     netmask: 255.255.255.0
+
+syslog:
+  - 10.1.100.1
+  - 10.1.100.2
+
+dns_servers: 10.1.200.1
+
+ospf:
+  area: 0
+  networks:
+    - 10.1.1.0247
+    - 10.1.2.0/24
+    - 10.1.3.0/24
+    - 10.1.4.0/24
+    - 10.1.5.0/24
+
+bgp:
+  local_as: 65001
+  neighbors:
+    - ip: 10.2.250.2
+      remote_as: 65004

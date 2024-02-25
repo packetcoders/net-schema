@@ -1,26 +1,27 @@
 ---
+hostname: rtr002
 interfaces:
-  - name: eth0
-    ip: 10.2.1.1
+  - name: gi0/1
+    ip: 10.2.1.2
     netmask: 255.255.255.0
   - name: eth1
-    ip: 10.2.2.1
+    ip: 10.2.2.2
     netmask: 255.255.255.0
   - name: eth2
-    ip: 10.2.3.1
+    ip: 10.2.3.2
     netmask: 255.255.255.0
   - name: eth3
-    ip: 10.2.4.1
+    ip: 10.2.4.2
     netmask: 255.255.255.0
   - name: eth4
-    ip: 10.2.5.1
+    ip: 10.2.5.2
     netmask: 255.255.255.0
 
 syslog:
-  - 10.2.1000.1
+  - 10.2.100.1
   - 10.2.100.2
 
-dns_servers: 10.2.200.1
+dns_servers: 10.2.200.2
 
 ospf:
   area: 0
@@ -34,5 +35,5 @@ ospf:
 bgp:
   local_as: 65002
   neighbors:
-    - ip: 10.2.250.1
-      remote_as: 65003
+    - ip: 10.2.250.2
+      remote_as: 650040

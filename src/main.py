@@ -6,7 +6,7 @@ from pathlib import Path
 
 sys.path.append(str(pathlib.Path(__file__).parent.parent.absolute()))
 
-from typing import Union
+from typing import Dict, Union
 
 import click
 from rich import box
@@ -66,7 +66,7 @@ class SchemaValidator:
         return {"errors": self._errors}
 
     @property
-    def results(self) -> list:
+    def results(self) -> Dict:
         """Return the validation results."""
         return self._validate()
 
@@ -110,14 +110,14 @@ def main(document_path: str, schema: str, check_dup_keys: bool):
         check_dup_keys=check_dup_keys,
     )
     schema_validator.initialize()
-    errors = False
+    success: bool = True
 
     validation_results = schema_validator.results
     errors = sorted(validation_results["errors"], key=lambda x: x["filename"])
 
     for error in errors:
         if error.get("error"):
-            errors = True
+            success = False
             table.add_row(
                 ":cross_mark:",
                 error["filename"],
@@ -129,7 +129,7 @@ def main(document_path: str, schema: str, check_dup_keys: bool):
 
     console.print(table)
 
-    if errors:
+    if not success:
         sys.exit(1)
 
 

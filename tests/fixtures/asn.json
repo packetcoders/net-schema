@@ -1,4 +1,42 @@
 {
+    "asn_int": {
+        "schema": {
+            "type": "object",
+            "properties": {
+                "asn_value": {
+                    "asn": true
+                }
+            },
+            "required": ["asn_value"]
+        },
+        "data": {
+            "valid": {
+                "asn_value": 0
+            },
+            "invalid": {
+                "asn_value": -1
+            }
+        }
+    },
+    "asn_str": {
+        "schema": {
+            "type": "object",
+            "properties": {
+                "asn_value": {
+                    "asn": true
+                }
+            },
+            "required": ["asn_value"]
+        },
+        "data": {
+            "valid": {
+                "asn_value": "0"
+            },
+            "invalid": {
+                "asn_value": "-1"
+            }
+        }
+    },
     "asn_min": {
         "schema": {
             "type": "object",

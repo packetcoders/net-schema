@@ -3,7 +3,6 @@ import sys
 from pathlib import Path
 
 from jsonschema import Draft7Validator, FormatChecker, exceptions
-from rich import print as rprint
 
 sys.path.append(str(Path(__file__).parent.parent.parent))
 
@@ -80,7 +79,7 @@ class JSONSchemaValidator:
         """JSON schema validator with the given JSON schema."""
         self._validator = Draft7Validator(schema, format_checker=FormatChecker())
         self._load_custom_validators()
-        self._errors = []
+        self._errors: list = []
 
     def _load_custom_validators(self) -> None:
         """Loads custom validators into the JSON schema validator."""
@@ -122,16 +121,3 @@ class JSONSchemaValidator:
     def results(self, data: dict) -> list:
         """Returns the validation results."""
         return self._validate(data)
-
-
-if __name__ == "__main__":
-    schema = {
-        "type": "object",
-        "properties": {"asn": {"type": "string", "asn": True}},
-        "required": ["asn"],
-    }
-    data = {"asn": "4294967296"}
-
-    schema_validator = JSONSchemaValidator()
-    schema_validator.initialize(schema=schema)
-    rprint(schema_validator.results(data))

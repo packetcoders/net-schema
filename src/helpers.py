@@ -45,14 +45,13 @@ def check_for_duplicate_keys(data, file_format):
         if file_format == "json":
             json.loads(data, object_pairs_hook=json_object_pairs_hook)
         elif file_format in ["yaml", "yml"]:
-            # Use yaml.load() with the correct custom loader
             yaml.load(data, Loader=SafeCustomYamlLoader)  # noqa : SafeLoader is used
         return True, None, None
     except DuplicateKeyError as e:
         return False, str(e), e.key
 
 
-def load_yaml_or_json(filename: str) -> Union[dict, ValueError]:
+def load_yaml_or_json(filename: str) -> Union[dict, None]:
     """Load a YAML or JSON file."""
     if isinstance(filename, str):
         filename_path = Path(filename)
@@ -62,5 +61,7 @@ def load_yaml_or_json(filename: str) -> Union[dict, ValueError]:
         elif filename_path.suffix == ".json":
             with open(filename_path) as f:
                 return json.load(f)
+        else:
+            return None
     else:
         raise ValueError("Input should be a string.")

@@ -11,8 +11,11 @@ def asn_to_int(instance) -> int:
     """Converts an ASN in dot notation to its integer representation."""
     asn_error = f"'{instance}' is not a valid ASN."
 
-    if not isinstance(instance, (int, str)) or isinstance(instance, bool):
+    if not isinstance(instance, (str, int, bool)):
         raise ValidationError(asn_error)
+
+    if isinstance(instance, int):
+        instance = str(instance)
 
     if isinstance(instance, str) and "." not in instance:
         try:
@@ -41,18 +44,14 @@ def asn_to_int(instance) -> int:
 # Custom ASN Validators
 def asn(validator, value, instance, schema) -> Generator:
     """Returns True if the ASN is a valid ASN, False otherwise."""
-    # Check if instance is a string given schema type excepts a string.
-    if not isinstance(instance, str):
-        pass
-    else:
-        try:
-            asn_int = asn_to_int(instance)
+    try:
+        asn_int = asn_to_int(instance)
 
-            if not (ASN_MIN <= asn_int <= ASN_MAX):
-                yield ValidationError(f"'{instance}' is not a valid ASN.")
+        if not (ASN_MIN <= asn_int <= ASN_MAX):
+            yield ValidationError(f"'{instance}' is not a valid ASN.")
 
-        except ValidationError as e:
-            yield e
+    except ValidationError as e:
+        yield e
 
 
 def asn_public(validator, value, instance, schema) -> Generator:

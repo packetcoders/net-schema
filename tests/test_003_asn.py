@@ -11,6 +11,8 @@ sys.path.append(f"{Path(__file__).parent.parent}/src")
 
 ASN_FIXTURE = f"{Path(__file__).parent}/fixtures/asn.json"
 ASN_FIXTURE_CHECKS = [
+    "asn_int",
+    "asn_str",
     "asn_min",
     "asn_max",
     "asn_public_min",
