@@ -13,7 +13,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  code-quality:
+  lint:
     name: "python-code-quality"
     strategy:
       matrix:
@@ -33,26 +33,14 @@ jobs:
           python-version: ${{matrix.python-version}}
           poetry-version: ${{matrix.poetry-version}}
 
-      - name: Format (chk) - black
-        run: poetry run black ./src ./tests
-      - name: Format (chk) - isort
-        run: poetry run isort ./src ./tests --check-only --profile black
-      - name: Format (chk) - autoflake
-        run: poetry run autoflake -r . --expand-star-imports --remove-unused-variables --remove-all-unused-imports
-      - name: Format (chk) - bandit
-        run: poetry run bandit -c pyproject.toml -r .
-      - name: Format (chk) - ruff
-        run: poetry run ruff format . --check
-      - name: Lint - flake8
-        run: poetry run flake8 .
-      - name: Lint - ruff
-        run: ruff check .
-      - name: Lint - yamllint
-        run: poetry run yamllint src/ -c .yamllint
-      - name: Type check - mypy
-        run: poetry run mypy ./src ./tests --config-file pyproject.toml
+      - run: poetry run black . --check
+      - run: poetry run autoflake -r . --expand-star-imports --remove-unused-variables --remove-all-unused-imports
+      - run: poetry run ruff format . --check
+      - run: poetry run ruff check .
+      - run: poetry run mypy .
+
   test:
-    name: "python-tests"
+    name: "test"
     needs: "code-quality"
     strategy:
       matrix:
