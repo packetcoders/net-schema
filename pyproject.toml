@@ -47,8 +47,6 @@ idna = "3.3"
 ipykernel = "6.6.0"
 ipython = "7.31.1"
 jedi = "0.18.1"
-jupyter-client = "7.1.0"
-jupyter-core = "4.9.1"
 matplotlib-inline = "0.1.3"
 mccabe = "0.6.1"
 mypy = "0.931"
@@ -66,17 +64,14 @@ pycodestyle = "2.8.0"
 pydocstyle = "6.1.1"
 pyflakes = "2.4.0"
 python-dateutil = "2.8.2"
-pyzmq = "22.3.0"
 regex = "2021.10.8"
 requests = "2.26.0"
-"ruamel.yaml" = "0.15.100"
 six = "1.16.0"
 smmap = "5.0.0"
 snowballstemmer = "2.2.0"
 stevedore = "3.5.0"
 toml = "0.10.2"
 tomli = "1.2.1"
-tornado = "6.1"
 traitlets = "5.1.1"
 urllib3 = "1.26.7"
 wcwidth = "0.2.5"
@@ -109,17 +104,28 @@ pretty = true
 ignore_missing_imports = true
 
 [tool.ruff]
+line-length = 95
 lint.select = [
-    "I",       # "isort"
-    "E",       # "pycodestyle"
-    "F",       # "pyflakes"
     "B",       # "mypy"
     "D",       # "pydocstyle"
-    "RUF100",  # "flake8-quotes"
+    "E",       # "pycodestyle"
+    "F",       # "pyflakes"
+    "I",       # "isort"
     "N",       # "flake8-string-format"
-    "UP",      # "flake8-docstrings"
+    "RUF100",  # "flake8-quotes"
+    "S",       # "flake8-bandit"
     "T201",    # "flake8-print"
-    "S"        # "flake8-bandit"
+    "UP",      # "flake8-docstrings"
 ]
-line-length = 95
-lint.ignore = ["B904","D401", "D406", "D100", "D203", "D212", "E402", "E712", "S101", "UP007"]
+lint.ignore = [
+    "B904", # Backoff must be used with a set of well-known exceptions
+    "D401", # First line should be in imperative mood; try rephrasing
+    "D406", # Section name should end with a newline
+    "D100", # Missing docstring in public module
+    "D203", # 1 blank line required before class docstring
+    "D212", # Multi-line docstring summary should start at the first line
+    "E402", # Module level import not at top of file
+    "E712", # Comparison to True should be 'if cond is True:' or 'if cond:'
+    "S101", # Use of assert detected
+    "UP007" # Unknown error code (might be specific to a particular plugin or extension)
+]
