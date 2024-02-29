@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="./logo.png">
+  <img src="https://github.com/packetcoders/net-schema/blob/development/logo.png?raw=True">
   <p></p>
 </div>
 
