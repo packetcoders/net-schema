@@ -4,14 +4,8 @@ name: CI
 on:
   push:
     branches: [ "main" ]
-    paths:
-      - src**
-      - "!**/README.md"
   pull_request:
     branches: [ "development" ]
-    paths:
-      - src**
-      - "!**/README.md"
   workflow_dispatch:
 
 jobs:
