@@ -1,0 +1,66 @@
+type: object
+properties:
+  hostname:
+    type: string
+  interfaces:
+      type: array
+      items:
+        type: object
+        properties:
+          name:
+            type: string
+            pattern: '^eth[0-9]+$'
+          ip:
+            ip_ipv4: true
+          netmask:
+            type: string
+            pattern: '^255\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$'
+      required:
+        - name
+        - ip
+        - netmask
+  syslog:
+    type: array
+    items:
+      ip_ipv4: true
+  dns_servers:
+    ip_ipv4: true
+  ospf:
+    type: object
+    properties:
+      area:
+        type: integer
+      networks:
+        type: array
+        items:
+          type: string
+    required:
+      - area
+      - networks
+  bgp:
+    type: object
+    properties:
+      local_as:
+        asn_private: true
+      neighbors:
+        type: array
+        items:
+          type: object
+          properties:
+            ip:
+              ip_ipv4: true
+            remote_as:
+              asn_private: true
+          required:
+            - ip
+            - remote_as
+    required:
+      - local_as
+      - neighbors
+required:
+  - hostname
+  - interfaces
+  - syslog
+  - dns_servers
+  - ospf
+  - bgp
