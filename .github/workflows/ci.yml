@@ -1,54 +1,70 @@
----
 name: CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "development" ]
+    branches: ["development"]
   workflow_dispatch:
 
 jobs:
   lint:
-    name: "lint"
+    name: "Lint"
     strategy:
       matrix:
-        python-version: ["3.8", "3.9", "3.10", "3.11"]
-        poetry-version: [1.3.1]
+        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: "Setup Python, Poetry and Dependencies"
-        uses: packetcoders/action-setup-cache-python-poetry@main
-        with:
-          python-version: ${{matrix.python-version}}
-          poetry-version: ${{matrix.poetry-version}}
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
 
-      - run: poetry run black . --check
-      - run: poetry run autoflake -r . --expand-star-imports --remove-unused-variables --remove-all-unused-imports
-      - run: poetry run ruff format . --check
-      - run: poetry run ruff check .
-      - run: poetry run mypy .
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Sync project dependencies
+        run: uv pip install --system -r requirements.txt && uv sync --dev
+
+      - name: Run Black
+        run: black . --check
+
+      - name: Run Autoflake
+        run: autoflake -r . --expand-star-imports --remove-unused-variables --remove-all-unused-imports
+
+      - name: Run Ruff Formatter Check
+        run: ruff format . --check
+
+      - name: Run Ruff Linter
+        run: ruff check .
+
+      - name: Run Mypy
+        run: mypy .
 
   test:
-    name: "test"
-    needs: "lint"
+    name: "Test"
+    needs: lint
     strategy:
       matrix:
-        python-version: ["3.8", "3.9", "3.10", "3.11"]
-        poetry-version: [1.3.1]
+        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: "Setup Python, Poetry and Dependencies"
-        uses: packetcoders/action-setup-cache-python-poetry@main
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
-          python-version: ${{matrix.python-version}}
-          poetry-version: ${{matrix.poetry-version}}
+          python-version: ${{ matrix.python-version }}
 
-      - name: Test
-        run: poetry run pytest tests -vvv --tb=short
+      - name: Sync project dependencies
+        run: uv sync --dev
+
+      - name: Run Tests
+        run: pytest tests -vvv --tb=short
