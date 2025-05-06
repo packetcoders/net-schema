@@ -618,6 +618,7 @@ dependencies = [
     { name = "referencing" },
     { name = "rich" },
     { name = "typer" },
+    { name = "types-pyyaml" },
 ]
 
 [package.dev-dependencies]
@@ -673,7 +674,6 @@ dev = [
     { name = "toml" },
     { name = "tomli" },
     { name = "traitlets" },
-    { name = "types-pyyaml" },
     { name = "urllib3" },
     { name = "wcwidth" },
     { name = "yamllint" },
@@ -688,6 +688,7 @@ requires-dist = [
     { name = "referencing", specifier = ">=0.30.2,<0.31" },
     { name = "rich", specifier = ">=13.9.4,<14" },
     { name = "typer", specifier = ">=0.9.4,<0.10" },
+    { name = "types-pyyaml", specifier = "==6.0.12" },
 ]
 
 [package.metadata.requires-dev]
@@ -743,7 +744,6 @@ dev = [
     { name = "toml", specifier = "==0.10.2" },
     { name = "tomli", specifier = "==2.2.1" },
     { name = "traitlets", specifier = "==5.14.3" },
-    { name = "types-pyyaml", specifier = "==6.0.12.12" },
     { name = "urllib3", specifier = "==2.4.0" },
     { name = "wcwidth", specifier = "==0.2.13" },
     { name = "yamllint", specifier = "==1.37.1" },
@@ -1397,11 +1397,11 @@ wheels = [
 
 [[package]]
 name = "types-pyyaml"
-version = "6.0.12.12"
+version = "6.0.12"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/af/48/b3bbe63a129a80911b60f57929c5b243af909bc1c9590917434bca61a4a3/types-PyYAML-6.0.12.12.tar.gz", hash = "sha256:334373d392fde0fdf95af5c3f1661885fa10c52167b14593eb856289e1855062", size = 11974 }
+sdist = { url = "https://files.pythonhosted.org/packages/d3/47/e1941cf017d2dbf4411f6c8a3932f72eb900572ced7d0ac5d5bab1145357/types-PyYAML-6.0.12.tar.gz", hash = "sha256:f6f350418125872f3f0409d96a62a5a5ceb45231af5cc07ee0034ec48a3c82fa", size = 9819 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/9d/df/aabb870a04254ceb8a406b0a4222c1b14f7fdf3d2d7633ba49364aca27f3/types_PyYAML-6.0.12.12-py3-none-any.whl", hash = "sha256:c05bc6c158facb0676674b7f11fe3960db4f389718e19e62bd2b84d6205cfd24", size = 14923 },
+    { url = "https://files.pythonhosted.org/packages/1d/14/1b89f3003c0718c0a48626699837947783cb670d023bc85a6a92261ee695/types_PyYAML-6.0.12-py3-none-any.whl", hash = "sha256:29228db9f82df4f1b7febee06bbfb601677882e98a3da98132e31c6874163e15", size = 14097 },
 ]
 
 [[package]]

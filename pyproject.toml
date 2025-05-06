@@ -21,6 +21,7 @@ dependencies = [
     "typer>=0.9.4,<0.10",
     "isort>=6.0.1,<7",
     "jupyter-client>=8.6.3,<9",
+    "types-pyyaml==6.0.12",
 ]
 
 [project.urls]
@@ -82,7 +83,6 @@ dev = [
     "toml==0.10.2",
     "tomli==2.2.1",
     "traitlets==5.14.3",
-    "types-pyyaml==6.0.12.12",
     "urllib3==2.4.0",
     "wcwidth==0.2.13",
     "yamllint==1.37.1",
