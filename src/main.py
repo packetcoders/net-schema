@@ -57,8 +57,8 @@ class SchemaValidator:
                             }
                         )
 
-                data = load_yaml_or_json(str(filename))
-                errors = self._validator._validate(data)
+                loaded_data = load_yaml_or_json(str(filename))
+                errors = self._validator._validate(loaded_data)
                 for e in errors:
                     e.update({"filename": str(filename)})
                     self._errors.append(e)

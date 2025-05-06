@@ -11,7 +11,7 @@ jobs:
     name: "lint"
     strategy:
       matrix:
-        python-version: ["3.8", "3.9", "3.10", "3.11"]
+        python-version: ["3.11", "3.12"]
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
@@ -29,7 +29,7 @@ jobs:
         run: |
           uv pip install black autoflake ruff mypy pytest --system
           uv pip install -e . --system
-      
+
       - run: black . --check
       - run: autoflake -r . --expand-star-imports --remove-unused-variables --remove-all-unused-imports
       - run: ruff format . --check
@@ -41,7 +41,7 @@ jobs:
     needs: "lint"
     strategy:
       matrix:
-        python-version: ["3.8", "3.9", "3.10", "3.11"]
+        python-version: ["3.11", "3.12"]
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository

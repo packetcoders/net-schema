@@ -2,6 +2,7 @@ import json
 
 import pytest
 import yaml
+
 from helpers import (
     DuplicateKeyError,
     SafeCustomYamlLoader,
