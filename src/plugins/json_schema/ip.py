@@ -1,5 +1,6 @@
 import ipaddress
 from collections.abc import Generator
+
 from jsonschema.exceptions import ValidationError
 
 
