@@ -6,7 +6,7 @@ from pathlib import Path
 
 sys.path.append(str(pathlib.Path(__file__).parent.parent.absolute()))
 
-from typing import Dict, Union
+from typing import Union
 
 import click
 from rich import box
@@ -66,7 +66,7 @@ class SchemaValidator:
         return {"errors": self._errors}
 
     @property
-    def results(self) -> Dict:
+    def results(self) -> dict:
         """Return the validation results."""
         return self._validate()
 

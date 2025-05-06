@@ -3,7 +3,7 @@ name = "net-schema"
 version = "0.1.1"
 description = "Net Schema is a library that allows you to validate the schema of your YAML documents. For example your Ansible host vars or group vars."
 authors = [{ name = "PacketCoders", email = "contact@packetcoders.io" }]
-requires-python = "~=3.11"
+requires-python = "~=3.8"
 readme = "README.md"
 keywords = [
     "jsonschema",

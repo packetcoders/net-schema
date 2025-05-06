@@ -65,7 +65,7 @@ def test_yaml_duplicate_keys_detected():
     key: value2
     """
     with pytest.raises(DuplicateKeyError) as excinfo:
-        yaml.load(yaml_data, Loader=SafeCustomYamlLoader)  # noqa : SafeLoader is used
+        yaml.load(yaml_data, Loader=SafeCustomYamlLoader)   # noqa : S506
     assert "Duplicate key found: key" in str(excinfo.value)
     assert excinfo.value.key == "key"
 
