@@ -30,6 +30,12 @@ pip install net-schema
 poetry add net-schema
 ```
 
+**UV**
+
+```bash
+uv pip install net-schema
+```
+
 ## Usage
 Net Schema provides a CLI. You pass in the path to your documents, along with your schema path. Then Net Schema validates your data against the schema.
 
