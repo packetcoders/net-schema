@@ -3,9 +3,6 @@
   <p></p>
 </div>
 
-> [!IMPORTANT]
-> Please note that Net Schema is currently in beta.
-
 # Net Schema
 
 ## About this Project
@@ -16,24 +13,13 @@ Additionally, this project is designed for schema validation of network-specific
 
 ## Installation
 
-To install the Net Schema library, perform the following:
-
-**Pip**
+To install Net Schema:
 
 ```bash
 pip install net-schema
 ```
-
-**Poetry**
-
 ```bash
-poetry add net-schema
-```
-
-**UV**
-
-```bash
-uv pip install net-schema
+uv add net-schema
 ```
 
 ## Usage
