@@ -45,7 +45,7 @@ def check_for_duplicate_keys(data, file_format):
         if file_format == "json":
             json.loads(data, object_pairs_hook=json_object_pairs_hook)
         elif file_format in ["yaml", "yml"]:
-            yaml.load(data, Loader=SafeCustomYamlLoader)  # noqa : SafeLoader is used
+            yaml.load(data, Loader=SafeCustomYamlLoader)  # noqa : S506
         return True, None, None
     except DuplicateKeyError as e:
         return False, str(e), e.key

@@ -1,6 +1,7 @@
 """Module contains tests for the JSONSchemaValidator class."""
 
 import pytest
+
 from plugins.json_schema.validator import JSONSchemaValidator
 
 

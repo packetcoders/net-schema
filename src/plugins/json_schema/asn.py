@@ -1,4 +1,4 @@
-from typing import Generator
+from collections.abc import Generator
 
 from jsonschema.exceptions import ValidationError
 
@@ -11,7 +11,7 @@ def asn_to_int(instance) -> int:
     """Converts an ASN in dot notation to its integer representation."""
     asn_error = f"'{instance}' is not a valid ASN."
 
-    if not isinstance(instance, (str, int, bool)):
+    if not isinstance(instance, str | int | bool):
         raise ValidationError(asn_error)
 
     if isinstance(instance, int):
